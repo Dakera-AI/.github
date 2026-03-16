@@ -232,9 +232,7 @@ sequenceDiagram
 
 Dakera is under active development. The platform includes a core engine, native SDKs, a CLI, an MCP server, an admin dashboard, and deployment tooling.
 
-We are progressively open-sourcing components as they reach production readiness.
-
-**Watch this organization** to get notified as repositories go public.
+**Watch this organization** to stay updated on releases.
 
 <br>
 
