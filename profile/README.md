@@ -1,232 +1,267 @@
-<h1 align="center">
-  <br>
-  Dakera AI
-  <br>
-</h1>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/DAKERA_AI-D4A843?style=for-the-badge&labelColor=0d0d0d&color=0d0d0d">
+    <img alt="Dakera AI" src="https://img.shields.io/badge/DAKERA_AI-D4A843?style=for-the-badge&labelColor=0d0d0d&color=0d0d0d">
+  </picture>
+</p>
 
-<h3 align="center">The Memory Engine for AI Agents</h3>
+<h2 align="center">The Memory Engine for AI Agents</h2>
 
 <p align="center">
-  <em>Persistent, searchable, semantic memory built in Rust.</em><br>
-  <em>Store, recall, and consolidate agent knowledge. One binary. Zero dependencies.</em>
+  Persistent, searchable, semantic memory built in Rust.<br>
+  One binary. Zero external dependencies.
 </p>
 
 <p align="center">
-  <a href="https://dakera.ai">Website</a> &nbsp;&bull;&nbsp;
-  <a href="https://www.linkedin.com/company/dakera-ai">LinkedIn</a> &nbsp;&bull;&nbsp;
-  <a href="https://github.com/Dakera-AI">GitHub</a>
+  <a href="https://dakera.ai"><strong>dakera.ai</strong></a> &nbsp;&middot;&nbsp;
+  <a href="https://www.linkedin.com/company/dakera-ai">LinkedIn</a>
 </p>
 
----
+<br>
 
-## The Problem
+> **Your agents have amnesia.** Every session starts from zero. Every mistake repeated. Every preference forgotten. Context windows are not memory — they are expensive, fragile, and hit a hard ceiling. Dakera gives AI agents real memory — persistent, searchable, and semantic — so they learn, adapt, and improve across every session.
 
-Every AI agent session starts from zero. Every mistake repeated. Every preference forgotten. Context windows aren't memory -- they're expensive, fragile, and hit a hard ceiling.
+<br>
 
-**Dakera gives your agents real memory** -- persistent, searchable, and semantic -- so they learn, adapt, and improve across every session.
+## Overview
 
----
-
-## What Dakera Does
-
-Dakera is not a generic database. It is a purpose-built **memory and retrieval engine** for AI agent systems. It unifies semantic memory, hybrid search, built-in inference, knowledge graphs, and multi-agent coordination into a single Rust binary.
+Dakera is a purpose-built **memory and retrieval engine** for AI agent systems. It unifies semantic memory, hybrid search, built-in inference, knowledge graphs, and multi-agent coordination into a single Rust binary.
 
 ```mermaid
-graph LR
-    A["AI Agent"] -->|store| B["Dakera"]
-    A -->|recall| B
-    A -->|search| B
-    A -->|consolidate| B
-    B -->|semantic memory| C["Learns over time"]
-    B -->|knowledge graph| D["Connects ideas"]
-    B -->|hybrid search| E["Finds anything"]
+%%{init: {'theme': 'neutral', 'themeVariables': { 'fontSize': '14px' }}}%%
+flowchart LR
+    subgraph Agents
+        A1(["Agent 1"])
+        A2(["Agent 2"])
+        A3(["Agent N"])
+    end
+
+    subgraph Dakera
+        direction TB
+        MEM["Memory Engine"]
+        SEARCH["Hybrid Search"]
+        INF["Inference"]
+        KG["Knowledge Graph"]
+    end
+
+    A1 & A2 & A3 -- "store · recall · search" --> Dakera
+
+    Dakera -- "learns over time" --> OUT(["Smarter Agents"])
 ```
 
----
+<br>
 
 ## Architecture
 
+Nine Rust crates compiled into a single binary. No external services required.
+
 ```mermaid
-graph TB
-    subgraph Client Layer
-        REST["REST API"]
-        GRPC["gRPC"]
-        MCP["MCP Server<br><sub>45+ tools</sub>"]
-        DASH["Dashboard<br><sub>34 pages</sub>"]
-        CLI["CLI"]
+%%{init: {'theme': 'neutral', 'themeVariables': { 'fontSize': '13px' }}}%%
+block-beta
+    columns 5
+
+    block:client:5
+        columns 5
+        REST["REST API\n(Axum)"]
+        GRPC["gRPC\n(Tonic)"]
+        MCP_S["MCP Server\n45+ tools"]
+        DASHBOARD["Dashboard\n(Leptos/WASM)"]
+        CLI_T["CLI\n(dk)"]
     end
 
-    subgraph Middleware
-        AUTH["Auth & API Keys<br><sub>RBAC scoped access</sub>"]
-        RATE["Rate Limiting"]
-        AUDIT["Audit Logging"]
-        PROM["Prometheus Metrics"]
+    space:5
+
+    block:middleware:5
+        columns 4
+        AUTH["Auth & RBAC\nScoped API Keys"]
+        RATE["Rate\nLimiting"]
+        AUDIT["Audit\nLogging"]
+        METRICS["Prometheus\nMetrics"]
     end
 
-    subgraph Core Engine
-        INF["Inference Engine<br><sub>Built-in embeddings</sub>"]
-        VEC["Vector Search<br><sub>IVF &middot; HNSW &middot; IVFPQ</sub>"]
-        BM25["Full-Text Search<br><sub>BM25</sub>"]
-        MEM["Agent Memory<br><sub>Store &middot; Recall &middot; Consolidate</sub>"]
-        KG["Knowledge Graph<br><sub>Similarity &middot; Clustering</sub>"]
-        CLUSTER["Clustering & Sync<br><sub>Gossip protocol HA</sub>"]
+    space:5
+
+    block:engine:5
+        columns 6
+        INFERENCE["Inference\nEngine"]
+        VECTOR["Vector Search\nIVF · HNSW · IVFPQ"]
+        FULLTEXT["Full-Text\nBM25"]
+        MEMORY["Agent\nMemory"]
+        KNOWLEDGE["Knowledge\nGraph"]
+        CLUSTER["Clustering\nGossip HA"]
     end
 
-    subgraph Storage Backends
-        MEMORY["In-Memory"]
+    space:5
+
+    block:storage:5
+        columns 3
+        MEM_S["In-Memory"]
         FS["Filesystem"]
         S3["S3 / MinIO"]
     end
 
-    REST & GRPC & MCP & DASH & CLI --> AUTH & RATE & AUDIT & PROM
-    AUTH & RATE & AUDIT & PROM --> INF & VEC & BM25 & MEM & KG & CLUSTER
-    INF & VEC & BM25 & MEM & KG & CLUSTER --> MEMORY & FS & S3
+    client --> middleware
+    middleware --> engine
+    engine --> storage
 ```
 
----
+<br>
 
-## Core Capabilities
+## Capabilities
 
 ### Agent Memory
 
-Real memory for AI agents -- not just storage, but a cognitive layer that makes agents smarter over time.
+A cognitive memory layer — not just storage. Four memory types with lifecycle management.
+
+| Memory Type | Purpose | Example |
+|:--|:--|:--|
+| **Episodic** | What happened | "User asked about pricing on March 5th" |
+| **Semantic** | What it means | "User prefers TypeScript for frontend" |
+| **Procedural** | How to do it | "Deploy via `dk deploy --env prod`" |
+| **Working** | Active context | Current conversation state |
 
 ```mermaid
-graph LR
-    subgraph Memory Types
-        EP["Episodic<br><sub>What happened</sub>"]
-        SEM["Semantic<br><sub>What it means</sub>"]
-        PROC["Procedural<br><sub>How to do it</sub>"]
-        WORK["Working<br><sub>Right now</sub>"]
-    end
-
-    subgraph Lifecycle
-        STORE["Store"] --> RECALL["Recall"]
-        RECALL --> CONSOLIDATE["Consolidate"]
-        CONSOLIDATE --> FORGET["Forget"]
-    end
-
-    EP & SEM & PROC & WORK --> STORE
+%%{init: {'theme': 'neutral', 'themeVariables': { 'fontSize': '13px' }}}%%
+flowchart LR
+    STORE["Store"] --> RECALL["Recall"]
+    RECALL --> CONSOLIDATE["Consolidate"]
+    CONSOLIDATE --> FORGET["Forget"]
+    FORGET -.->|"strengthens\nwhat remains"| STORE
 ```
 
-- **Per-agent namespaces** -- Hundreds of agents, each with isolated memory
-- **Session lifecycle** -- Context survives across conversations
-- **Importance scoring** -- Agents remember what matters, forget what doesn't
-- **Memory consolidation** -- Automatically merge and strengthen related memories
+**Key properties:**
+
+- **Per-agent namespaces** — Isolated memory per agent, hundreds of agents supported
+- **Session lifecycle** — Context persists across conversations
+- **Importance scoring** — Agents remember what matters, decay what doesn't
+- **Memory consolidation** — Related memories merge and strengthen automatically
+
+<br>
 
 ### Hybrid Search
 
-Three search modes in one engine with tunable weights:
+Three search modes, one engine. Tunable weights for precision control.
 
-| Mode | How it Works | Best For |
+| Mode | Method | Use Case |
 |:--|:--|:--|
-| **Vector Similarity** | Cosine, Euclidean, Dot Product with IVF/HNSW/IVFPQ indexes | Semantic meaning, "find similar" |
-| **Full-Text (BM25)** | Classic keyword ranking | Exact terms, names, codes |
-| **Hybrid** | Weighted combination of vector + BM25 | Best of both worlds |
+| **Vector** | Cosine · Euclidean · Dot Product | Semantic similarity |
+| **Full-Text** | BM25 keyword ranking | Exact terms, names, identifiers |
+| **Hybrid** | Weighted vector + BM25 | Combined precision and recall |
 
-All modes support **metadata filtering** with rich operators: `$eq`, `$gt`, `$lt`, `$in`, `$and`, `$or`.
+**Index types:** IVF, HNSW, IVFPQ
+**Metadata filtering:** `$eq` · `$gt` · `$lt` · `$in` · `$and` · `$or`
+
+<br>
 
 ### Built-in Inference
 
-No external embedding service needed. Dakera embeds text automatically on upsert and query:
+Embed text automatically on upsert and query. No external embedding service. No configuration.
 
 ```
 POST /v1/namespaces/docs/upsert-text
-{"texts": [{"id": "doc-1", "text": "Vector databases enable semantic search"}]}
+{ "texts": [{ "id": "doc-1", "text": "Agents need persistent memory" }] }
 
 POST /v1/namespaces/docs/query-text
-{"text": "how do semantic search systems work", "top_k": 5}
+{ "text": "how do agents remember things", "top_k": 5 }
 ```
 
-HuggingFace models built in. Auto-vectorization. Semantic routing. Zero configuration.
+HuggingFace models included. Auto-vectorization at ingest and query time.
+
+<br>
 
 ### Knowledge Graph
 
-Automatically construct knowledge graphs from stored memories:
+Automatically construct knowledge graphs from stored memories.
 
 ```mermaid
+%%{init: {'theme': 'neutral', 'themeVariables': { 'fontSize': '12px' }}}%%
 graph TD
-    A["Memory: User prefers TypeScript"] --- B["Memory: Built React dashboard"]
-    B --- C["Memory: Uses Next.js for SSR"]
-    A --- C
-    C --- D["Memory: Deployed on Vercel"]
-    B --- E["Memory: Chose Tailwind for styling"]
-
-    style A fill:#1a1a2e,stroke:#D4A843,color:#f8f8f8
-    style B fill:#1a1a2e,stroke:#D4A843,color:#f8f8f8
-    style C fill:#1a1a2e,stroke:#D4A843,color:#f8f8f8
-    style D fill:#1a1a2e,stroke:#D4A843,color:#f8f8f8
-    style E fill:#1a1a2e,stroke:#D4A843,color:#f8f8f8
+    M1(["Prefers TypeScript"]) ---|0.94| M2(["Built React dashboard"])
+    M2 ---|0.91| M3(["Uses Next.js"])
+    M1 ---|0.87| M3
+    M3 ---|0.82| M4(["Deployed on Vercel"])
+    M2 ---|0.79| M5(["Chose Tailwind CSS"])
 ```
 
-- **Similarity edges** -- Automatically link related memories
-- **Cluster summarization** -- Group and summarize knowledge clusters
-- **Deduplication** -- Keep memory clean and non-redundant
+- **Similarity edges** — Weighted connections between related memories
+- **Cluster summarization** — Group and summarize knowledge regions
+- **Deduplication** — Eliminate redundant memories automatically
 
-### MCP Native
+<br>
 
-45+ tools for any MCP-compatible agent -- Claude, Cursor, Windsurf, and more. Memory, search, knowledge graphs, agent management -- all exposed as MCP tools your AI can call directly.
+### MCP Integration
 
-### Production-Grade
+45+ tools for MCP-compatible AI agents. Claude, Cursor, Windsurf, and others connect directly to Dakera as a persistent memory backend.
 
-| Capability | Details |
+Memory operations, search, knowledge graph traversal, agent management, and session lifecycle — all exposed as callable tools.
+
+<br>
+
+### Production Infrastructure
+
+| Area | Details |
 |:--|:--|
-| **Auth** | Scoped API keys with RBAC (read / write / admin / super_admin) |
-| **APIs** | REST (Axum) + gRPC (Tonic) |
-| **Clustering** | Multi-node HA with gossip protocol and automatic rebalancing |
+| **Authentication** | Scoped API keys with RBAC — read, write, admin, super_admin |
+| **APIs** | REST (Axum) and gRPC (Tonic) |
+| **High Availability** | Multi-node clustering with gossip protocol, automatic rebalancing |
 | **Storage** | In-memory, filesystem, or S3/MinIO backends |
-| **Observability** | Prometheus metrics, health/readiness/liveness probes, audit logging |
-| **Operations** | Rate limiting, backup/restore, configuration via environment variables |
+| **Observability** | Prometheus metrics, health / readiness / liveness probes, audit logging |
+| **Operations** | Rate limiting, backup / restore, env-based configuration |
 
----
+<br>
 
-## How It Works
+## Request Lifecycle
 
 ```mermaid
+%%{init: {'theme': 'neutral', 'themeVariables': { 'fontSize': '13px' }}}%%
 sequenceDiagram
-    participant Agent as AI Agent
-    participant D as Dakera
-    participant S as Storage
+    participant Agent
+    participant Dakera
+    participant Storage
 
-    Note over Agent,S: 1. Store Memory
-    Agent->>D: POST /v1/memory/store
-    D->>D: Auto-embed text
-    D->>D: Score importance
-    D->>S: Persist memory
-    D-->>Agent: stored
+    rect rgb(40, 40, 40)
+        Note over Agent,Storage: Store
+        Agent->>Dakera: POST /v1/memory/store
+        Dakera->>Dakera: Embed text
+        Dakera->>Dakera: Score importance
+        Dakera->>Storage: Persist
+        Dakera-->>Agent: Stored
+    end
 
-    Note over Agent,S: 2. Recall by Meaning
-    Agent->>D: POST /v1/memory/recall
-    D->>D: Embed query
-    D->>S: Semantic search
-    D-->>Agent: ranked memories
+    rect rgb(40, 40, 40)
+        Note over Agent,Storage: Recall
+        Agent->>Dakera: POST /v1/memory/recall
+        Dakera->>Dakera: Embed query
+        Dakera->>Storage: Semantic search
+        Dakera-->>Agent: Ranked memories
+    end
 
-    Note over Agent,S: 3. Build Knowledge
-    Agent->>D: POST /v1/knowledge/build
-    D->>D: Find connections
-    D->>D: Cluster & summarize
-    D-->>Agent: knowledge graph
+    rect rgb(40, 40, 40)
+        Note over Agent,Storage: Connect
+        Agent->>Dakera: POST /v1/knowledge/build
+        Dakera->>Dakera: Discover edges
+        Dakera->>Dakera: Cluster & summarize
+        Dakera-->>Agent: Knowledge graph
+    end
 ```
 
----
+<br>
 
 ## SDKs & Interfaces
 
-Native SDKs for the languages you already use, plus REST and gRPC for everything else:
-
-| | Language | Install |
+| Interface | Platform | Install |
 |:--|:--|:--|
-| **Python** | Python 3.8+ | `pip install dakera` |
-| **TypeScript** | Node.js / Deno / Browser | `npm install dakera` |
-| **Go** | Go 1.21+ | `go get github.com/dakera-ai/dakera-go` |
-| **Rust** | Rust 1.75+ | `cargo add dakera-client` |
-| **REST** | Any | `curl localhost:3000/v1/...` |
-| **gRPC** | Any | Port `50051` |
-| **MCP** | Claude, Cursor, Windsurf | 45+ tools |
-| **CLI** | Cross-platform | `dk` binary |
-| **Dashboard** | Browser | Leptos / WASM, 34 pages |
+| Python SDK | Python 3.8+ | `pip install dakera` |
+| TypeScript SDK | Node.js · Deno · Browser | `npm install dakera` |
+| Go SDK | Go 1.21+ | `go get github.com/dakera-ai/dakera-go` |
+| Rust SDK | Rust 1.75+ | `cargo add dakera-client` |
+| REST API | Any HTTP client | Port `3000` |
+| gRPC API | Any gRPC client | Port `50051` |
+| MCP Server | Claude · Cursor · Windsurf | 45+ tools |
+| CLI | macOS · Linux · Windows | `dk` binary |
+| Dashboard | Browser | Leptos / WASM |
 
----
+<br>
 
 ## Quick Start
 
@@ -253,41 +288,37 @@ memories = client.memory_recall(
     query="what languages does the user like?",
     top_k=5
 )
-# => [{score: 0.97, text: "User prefers TypeScript for frontend work"}]
+# => [{ score: 0.97, text: "User prefers TypeScript for frontend work" }]
 ```
 
----
+<br>
 
 ## The Ecosystem
 
-Dakera is a complete platform -- not just a database. The ecosystem includes the core engine, native SDKs for four languages, a CLI, an MCP server for AI tool integration, an admin dashboard, deployment configurations, comprehensive documentation, and a multi-agent research demo showcasing real-world usage.
+Dakera is a complete platform: core engine, native SDKs for four languages, a CLI, an MCP server for AI tool integration, an admin dashboard, deployment configurations, documentation, and a multi-agent research demo.
 
-We're actively building in the open and will be progressively releasing components as they reach production readiness. **Star and watch this organization to stay updated.**
+Components are being progressively open-sourced as they reach production readiness.
 
----
+**Watch this organization** to get notified as repositories go public.
+
+<br>
 
 ## Built With
 
 <p>
-  <img src="https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white" alt="Rust">
-  <img src="https://img.shields.io/badge/Axum-000000?style=for-the-badge" alt="Axum">
-  <img src="https://img.shields.io/badge/Tonic_(gRPC)-000000?style=for-the-badge" alt="Tonic">
-  <img src="https://img.shields.io/badge/Leptos-000000?style=for-the-badge" alt="Leptos">
-  <img src="https://img.shields.io/badge/WebAssembly-000000?style=for-the-badge&logo=webassembly&logoColor=white" alt="WASM">
-  <img src="https://img.shields.io/badge/Docker-000000?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
-  <img src="https://img.shields.io/badge/Prometheus-000000?style=for-the-badge&logo=prometheus&logoColor=white" alt="Prometheus">
+  <img src="https://img.shields.io/badge/Rust-000?style=flat-square&logo=rust&logoColor=fff" alt="Rust">
+  <img src="https://img.shields.io/badge/Axum-000?style=flat-square" alt="Axum">
+  <img src="https://img.shields.io/badge/Tonic%20(gRPC)-000?style=flat-square" alt="Tonic">
+  <img src="https://img.shields.io/badge/Leptos-000?style=flat-square" alt="Leptos">
+  <img src="https://img.shields.io/badge/WASM-000?style=flat-square&logo=webassembly&logoColor=fff" alt="WASM">
+  <img src="https://img.shields.io/badge/Docker-000?style=flat-square&logo=docker&logoColor=fff" alt="Docker">
+  <img src="https://img.shields.io/badge/Prometheus-000?style=flat-square&logo=prometheus&logoColor=fff" alt="Prometheus">
 </p>
 
 ---
 
-## License
-
-All Dakera repositories are released under the [MIT License](https://opensource.org/licenses/MIT).
-
----
-
 <p align="center">
-  <a href="https://dakera.ai">dakera.ai</a> &nbsp;&bull;&nbsp;
-  <a href="https://www.linkedin.com/company/dakera-ai">LinkedIn</a> &nbsp;&bull;&nbsp;
+  <a href="https://dakera.ai">dakera.ai</a> &nbsp;&middot;&nbsp;
+  <a href="https://www.linkedin.com/company/dakera-ai">LinkedIn</a> &nbsp;&middot;&nbsp;
   <a href="https://github.com/Dakera-AI">GitHub</a>
 </p>
