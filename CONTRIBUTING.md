@@ -10,43 +10,6 @@ Thanks for your interest in contributing to Dakera! This guide applies to all re
 4. **Make your changes** and commit with clear messages
 5. **Push** to your fork and open a **Pull Request**
 
-## Development Setup
-
-### Core Engine (Rust)
-
-```bash
-git clone https://github.com/Dakera-AI/dakera.git
-cd dakera
-cargo build
-cargo test
-```
-
-### Python SDK
-
-```bash
-git clone https://github.com/Dakera-AI/dakera-py.git
-cd dakera-py
-pip install -e ".[dev]"
-pytest
-```
-
-### JavaScript SDK
-
-```bash
-git clone https://github.com/Dakera-AI/dakera-js.git
-cd dakera-js
-npm install
-npm test
-```
-
-### Go SDK
-
-```bash
-git clone https://github.com/Dakera-AI/dakera-go.git
-cd dakera-go
-go test ./...
-```
-
 ## Pull Request Guidelines
 
 - Keep PRs focused on a single change
@@ -62,7 +25,7 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/):
 ```
 feat: add hybrid search weight parameter
 fix: correct cosine similarity calculation for zero vectors
-docs: update Python SDK quickstart example
+docs: update quickstart example
 test: add integration tests for clustering
 ```
 
@@ -75,7 +38,3 @@ test: add integration tests for clustering
 ## Code of Conduct
 
 All participants are expected to follow our [Code of Conduct](CODE_OF_CONDUCT.md). Be respectful, constructive, and inclusive.
-
-## License
-
-By contributing, you agree that your contributions will be licensed under the MIT License.
