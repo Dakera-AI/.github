@@ -23,7 +23,7 @@ We are committed to making participation in the Dakera community a harassment-fr
 
 ## Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project maintainers via our [LinkedIn page](https://www.linkedin.com/company/dakera-ai). All complaints will be reviewed and investigated promptly and fairly.
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by emailing [conduct@dakera.ai](mailto:conduct@dakera.ai). All complaints will be reviewed and investigated promptly and fairly.
 
 Project maintainers who do not follow or enforce the Code of Conduct may face temporary or permanent repercussions as determined by other members of the project's leadership.
 
