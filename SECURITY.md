@@ -4,7 +4,10 @@
 
 If you discover a security vulnerability in any Dakera repository, **please do not open a public issue**.
 
-Instead, report it responsibly by reaching out to us via our [LinkedIn page](https://www.linkedin.com/company/dakera-ai) with:
+**Preferred method — GitHub Private Security Reporting:**
+Navigate to the affected repository → **Security** tab → **Report a vulnerability**. This creates a private advisory visible only to maintainers and keeps the disclosure confidential until a fix is ready.
+
+**Alternatively:** Email [security@dakera.ai](mailto:security@dakera.ai) with:
 
 - A description of the vulnerability
 - Steps to reproduce

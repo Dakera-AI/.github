@@ -14,6 +14,15 @@
   <a href="https://www.linkedin.com/company/dakera-ai">LinkedIn</a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/dakera-ai/dakera/releases/latest"><img src="https://img.shields.io/github/v/release/dakera-ai/dakera?label=server&color=D4A843&style=flat-square" alt="Server"></a>
+  <a href="https://pypi.org/project/dakera/"><img src="https://img.shields.io/pypi/v/dakera?label=python&color=D4A843&style=flat-square" alt="PyPI"></a>
+  <a href="https://www.npmjs.com/package/@dakera-ai/dakera"><img src="https://img.shields.io/npm/v/@dakera-ai/dakera?label=npm&color=D4A843&style=flat-square" alt="npm"></a>
+  <a href="https://crates.io/crates/dakera-client"><img src="https://img.shields.io/crates/v/dakera-client?label=rust&color=D4A843&style=flat-square" alt="crates.io"></a>
+  <a href="https://github.com/dakera-ai/dakera-go/releases/latest"><img src="https://img.shields.io/github/v/release/dakera-ai/dakera-go?label=go&color=D4A843&style=flat-square" alt="Go"></a>
+  <a href="https://crates.io/crates/dakera-mcp"><img src="https://img.shields.io/crates/v/dakera-mcp?label=mcp&color=D4A843&style=flat-square" alt="MCP"></a>
+</p>
+
 <br>
 
 > **Your agents have amnesia.** Every session starts from zero. Every mistake repeated. Every preference forgotten. Context windows are not memory — they are expensive, fragile, and hit a hard ceiling. Dakera gives AI agents real memory so they learn, adapt, and improve across every session.
@@ -228,9 +237,52 @@ sequenceDiagram
 
 <br>
 
+## Ecosystem
+
+| Repository | Purpose |
+|:--|:--|
+| [dakera-deploy](https://github.com/dakera-ai/dakera-deploy) | Production deployment — Docker Compose, Helm, Kustomize |
+| [dakera-py](https://github.com/dakera-ai/dakera-py) | Python SDK |
+| [dakera-js](https://github.com/dakera-ai/dakera-js) | TypeScript / JavaScript SDK |
+| [dakera-rs](https://github.com/dakera-ai/dakera-rs) | Rust SDK |
+| [dakera-go](https://github.com/dakera-ai/dakera-go) | Go SDK |
+| dakera-mcp | MCP Server — 83 tools for MCP-compatible agents |
+| dakera-cli | CLI — manage namespaces, memories, and sessions |
+| [dakera-docs](https://github.com/dakera-ai/dakera-docs) | Documentation and API reference |
+
+<br>
+
+## Get Started
+
+```bash
+# Run the server
+docker run -p 8080:8080 ghcr.io/dakera-ai/dakera:latest
+
+# Python
+pip install dakera
+
+# TypeScript / JavaScript
+npm install @dakera-ai/dakera
+
+# Rust
+cargo add dakera-client
+
+# Go
+go get github.com/dakera-ai/dakera-go
+```
+
+Full documentation and quickstart guides: **[dakera-docs](https://github.com/dakera-ai/dakera-docs)**
+
+<br>
+
 ## What's Coming
 
-Dakera is under active development. The platform includes a core engine, native SDKs, a CLI, an MCP server, an admin dashboard, and deployment tooling.
+Dakera is under active development. Upcoming capabilities include:
+
+- **Multi-tenancy** — isolated workspaces for enterprise deployments
+- **Cloud-native scale** — managed cloud offering for teams that don't want to self-host
+- **Enterprise connectors** — native integrations with leading agent orchestration frameworks
+- **Advanced reasoning** — deeper associative recall, temporal context windows, and causal inference chains
 
 **Watch this organization** to stay updated on releases.
 

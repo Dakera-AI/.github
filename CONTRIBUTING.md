@@ -1,6 +1,12 @@
 # Contributing to Dakera
 
-Thanks for your interest in contributing to Dakera! This guide applies to all repositories under the Dakera-AI organization.
+Thanks for your interest in contributing to Dakera! This guide applies to all repositories under the [Dakera-AI](https://github.com/Dakera-AI) organization.
+
+## Architecture Overview
+
+Dakera is a multi-crate Rust project compiled into a single binary. The core engine handles agent memory, hybrid search (vector + BM25), built-in inference, and knowledge graph operations. A REST API, gRPC interface, MCP server, and WebAssembly dashboard sit above the engine. Native SDKs (Python, TypeScript, Rust, Go) wrap the REST API.
+
+Before contributing, it's worth reading the [documentation](https://github.com/dakera-ai/dakera-docs) to understand the memory model and API surface. Dev setup instructions are in each repository's README.
 
 ## Getting Started
 
