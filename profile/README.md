@@ -246,8 +246,8 @@ sequenceDiagram
 | [dakera-js](https://github.com/dakera-ai/dakera-js) | TypeScript / JavaScript SDK |
 | [dakera-rs](https://github.com/dakera-ai/dakera-rs) | Rust SDK |
 | [dakera-go](https://github.com/dakera-ai/dakera-go) | Go SDK |
-| [dakera-mcp](https://github.com/dakera-ai/dakera-mcp) | MCP Server — 83 tools for MCP-compatible agents |
-| [dakera-cli](https://github.com/dakera-ai/dakera-cli) | CLI — manage namespaces, memories, and sessions |
+| dakera-mcp | MCP Server — 83 tools for MCP-compatible agents |
+| dakera-cli | CLI — manage namespaces, memories, and sessions |
 | [dakera-docs](https://github.com/dakera-ai/dakera-docs) | Documentation and API reference |
 
 <br>
