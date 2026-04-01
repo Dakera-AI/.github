@@ -5,8 +5,8 @@
 <h2 align="center">The Memory Engine for AI Agents</h2>
 
 <p align="center">
-  Persistent, searchable, semantic memory built in Rust.<br>
-  One binary. Zero external dependencies.
+  Semantic memory. Hybrid search. Knowledge graphs.<br>
+  One Rust binary — no external dependencies.
 </p>
 
 <p align="center">
@@ -30,7 +30,7 @@
 
 ## Overview
 
-Dakera is a purpose-built **memory and retrieval engine** for AI agent systems. It unifies semantic memory, hybrid search, built-in inference, knowledge graphs, and multi-agent coordination into a single Rust binary.
+Dakera is **memory infrastructure** for AI agents — not a library, not a wrapper. A self-contained engine that unifies semantic memory, hybrid search, built-in inference, knowledge graphs, and multi-agent coordination into a single Rust binary. No embedding service. No separate graph database. No external search engine. Everything ships together.
 
 ```mermaid
 %%{init: {'theme': 'dark', 'themeVariables': { 'fontSize': '14px', 'primaryColor': '#1a1a2e', 'primaryTextColor': '#f0cc70', 'primaryBorderColor': '#D4A843', 'lineColor': '#D4A843', 'secondaryColor': '#161616', 'tertiaryColor': '#0d0d0d', 'edgeLabelBackground': '#0d0d0d' }}}%%
@@ -58,7 +58,7 @@ flowchart LR
 
 ## Architecture
 
-Multiple Rust crates compiled into a single binary. No external services required.
+Multiple Rust crates. One binary. No external services, no sidecars — deploy anywhere with a single container.
 
 ```mermaid
 %%{init: {'theme': 'dark', 'themeVariables': { 'fontSize': '13px', 'primaryColor': '#1a1a2e', 'primaryTextColor': '#f8f8f8', 'primaryBorderColor': '#D4A843', 'lineColor': '#3a3a3a', 'secondaryColor': '#161616', 'tertiaryColor': '#0d0d0d' }}}%%
@@ -116,7 +116,7 @@ block-beta
 
 ### Agent Memory
 
-A cognitive memory layer with four memory types and full lifecycle management.
+A cognitive memory layer modeled after how intelligent systems actually work — four memory types, automatic consolidation, and importance-based decay.
 
 | Memory Type | Purpose |
 |:--|:--|
@@ -143,7 +143,7 @@ flowchart LR
 
 ### Hybrid Search
 
-Three search modes in one engine with tunable weights.
+Three search modes. One engine. Fully tunable weights — so the right memory surfaces at the right moment.
 
 | Mode | Method | Use Case |
 |:--|:--|:--|
@@ -157,13 +157,13 @@ Supports multiple index types and rich metadata filtering.
 
 ### Built-in Inference
 
-Embed text automatically on ingest and query. No external embedding service required.
+No embedding service to configure, scale, or pay for. Dakera runs inference natively — text is embedded automatically at ingest and at query time.
 
 <br>
 
 ### Knowledge Graph
 
-Automatically discover and connect related memories.
+Dakera continuously discovers and weights relationships between memories — no schema design, no manual edges.
 
 ```mermaid
 %%{init: {'theme': 'dark', 'themeVariables': { 'fontSize': '12px', 'primaryColor': '#1a1a2e', 'primaryTextColor': '#f0cc70', 'primaryBorderColor': '#D4A843', 'lineColor': '#8B6914', 'secondaryColor': '#161616', 'tertiaryColor': '#0d0d0d', 'edgeLabelBackground': '#0d0d0d' }}}%%
@@ -183,7 +183,7 @@ graph TD
 
 ### MCP Integration
 
-Exposes memory, search, knowledge graphs, and agent management as tools for MCP-compatible AI agents.
+First-class MCP support — 83 tools spanning memory, search, knowledge graphs, and agent management. Compatible with Claude, GPT, and any MCP-capable agent framework.
 
 <br>
 
@@ -251,39 +251,7 @@ sequenceDiagram
 
 <br>
 
-## Get Started
-
-```bash
-# Run the server
-docker run -p 8080:8080 ghcr.io/dakera-ai/dakera:latest
-
-# Python
-pip install dakera
-
-# TypeScript / JavaScript
-npm install @dakera-ai/dakera
-
-# Rust
-cargo add dakera-client
-
-# Go
-go get github.com/dakera-ai/dakera-go
-```
-
-Full documentation and quickstart guides: **[dakera-docs](https://github.com/dakera-ai/dakera-docs)**
-
-<br>
-
-## What's Coming
-
-Dakera is under active development. Upcoming capabilities include:
-
-- **Multi-tenancy** — isolated workspaces for enterprise deployments
-- **Cloud-native scale** — managed cloud offering for teams that don't want to self-host
-- **Enterprise connectors** — native integrations with leading agent orchestration frameworks
-- **Advanced reasoning** — deeper associative recall, temporal context windows, and causal inference chains
-
-**Watch this organization** to stay updated on releases.
+**Documentation and API reference:** [dakera-docs](https://github.com/dakera-ai/dakera-docs)
 
 <br>
 
@@ -299,6 +267,8 @@ Dakera is under active development. Upcoming capabilities include:
 ---
 
 <p align="center">
+  Watch this organization to stay updated on releases.<br>
+  <br>
   <a href="https://dakera.ai">dakera.ai</a> &nbsp;&middot;&nbsp;
   <a href="https://www.linkedin.com/company/dakera-ai">LinkedIn</a>
 </p>
