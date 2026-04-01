@@ -15,7 +15,6 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/dakera-ai/dakera/releases/latest"><img src="https://img.shields.io/github/v/release/dakera-ai/dakera?label=server&color=D4A843&style=flat-square" alt="Server"></a>
   <a href="https://pypi.org/project/dakera/"><img src="https://img.shields.io/pypi/v/dakera?label=python&color=D4A843&style=flat-square" alt="PyPI"></a>
   <a href="https://www.npmjs.com/package/@dakera-ai/dakera"><img src="https://img.shields.io/npm/v/@dakera-ai/dakera?label=npm&color=D4A843&style=flat-square" alt="npm"></a>
   <a href="https://crates.io/crates/dakera-client"><img src="https://img.shields.io/crates/v/dakera-client?label=rust&color=D4A843&style=flat-square" alt="crates.io"></a>
