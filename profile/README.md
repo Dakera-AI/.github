@@ -1,158 +1,192 @@
-# ⚡ Dakera AI
+<div align="center">
+  <img src="https://raw.githubusercontent.com/dakera-ai/website/main/assets/logo-128.png" width="80" height="80" alt="Dakera AI" />
+  <br /><br />
 
-**Give your AI agents persistent memory.** Dakera is the complete agent-native data stack — built in Rust — providing vector search, hybrid retrieval, knowledge graphs, session management, and built-in embeddings in a single self-hosted binary. No external services. Your data stays on your stack.
+  <h1>DAKERA AI</h1>
 
-ذاكرة — Dhākira — Arabic for memory
+  <p><strong>The memory engine for AI agents.</strong><br/>
+  Persistent, searchable, decay-weighted agent memory — built in Rust — as a single self-hosted binary.</p>
 
-> Stop managing five services. Deploy one binary.
+  <p>
+    <a href="https://github.com/dakera-ai/dakera-docs"><img src="https://img.shields.io/badge/server-v0.11.52-blue?style=flat-square" alt="Server v0.11.52" /></a>
+    <a href="https://github.com/dakera-ai/dakera-mcp"><img src="https://img.shields.io/badge/mcp-v0.9.7-purple?style=flat-square&label=dakera--mcp" alt="MCP v0.9.7" /></a>
+    <a href="https://github.com/dakera-ai/dakera-py"><img src="https://img.shields.io/badge/SDKs-v0.11.51-green?style=flat-square" alt="SDKs v0.11.51" /></a>
+    <a href="https://github.com/dakera-ai/dakera-py/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="MIT License" /></a>
+  </p>
 
-[![Server](https://img.shields.io/badge/dakera-v0.11.52-blue)](https://github.com/dakera-ai/dakera-docs)
-[![MCP](https://img.shields.io/badge/dakera--mcp-v0.9.7-purple)](https://github.com/dakera-ai/dakera-mcp)
-[![SDKs](https://img.shields.io/badge/SDKs-v0.11.51-green)](https://github.com/dakera-ai/dakera-py)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/dakera-ai/dakera-py/blob/main/LICENSE)
+  <p>
+    <a href="https://dakera.ai">dakera.ai</a> ·
+    <a href="https://dakera.ai/docs">Documentation</a> ·
+    <a href="https://dakera.ai#cta">Early Access →</a>
+  </p>
 
----
-
-## What Dakera Does
-
-One binary replaces the separate services your AI agents currently depend on:
-
-| What you'd run separately | What Dakera provides |
-|--------------------------|---------------------|
-| Vector database (Qdrant, Pinecone, Weaviate) | Built-in HNSW / IVF / SPFresh vector index |
-| Full-text search (Elasticsearch, OpenSearch) | BM25 full-text search engine |
-| Embedding service (OpenAI, Cohere) | On-device ONNX embeddings — no API calls |
-| Memory layer (custom Redis/Postgres) | Decay-weighted agent memory with sessions |
-| Knowledge graph (Neo4j) | Built-in entity graph with cross-agent network |
-
-**Key capabilities:**
-- **Vector search** — HNSW, IVF, and SPFresh indexes; sub-10ms recall at 1M vectors
-- **Hybrid retrieval** — vector + BM25 full-text combined scoring in a single call
-- **Knowledge graphs** — entity extraction, relationship storage, cross-agent network visualization
-- **Session management** — group memories by agent session with session summaries
-- **Decay engine** — access-weighted importance scoring; memories fade when not recalled
-- **AutoPilot** — automated memory lifecycle management
-- **MCP native** — 84 tools, works with Claude Desktop, Claude Code, Cursor out of the box
-- **Self-hosted** — single Rust binary; your data never leaves your infrastructure
+  <blockquote>ذاكرة — <em>Dhākira</em> — Arabic for memory</blockquote>
+</div>
 
 ---
 
-## Quick Start
+## Why Dakera
+
+Every AI agent session starts from zero. Thousands of interactions — zero retained knowledge. Dakera gives your agents persistent, compounding memory backed by production-grade vector search, hybrid retrieval, and knowledge graphs.
+
+One binary. No external services. Sub-10ms recall.
 
 ```bash
-# Docker (server)
-docker run -p 3300:3300 ghcr.io/dakera-ai/dakera:latest
+# Run with Docker
+docker run -d -p 3300:3300 ghcr.io/dakera-ai/dakera:latest
 
-# Or with Docker Compose (recommended)
-curl -O https://raw.githubusercontent.com/dakera-ai/dakera-deploy/main/docker-compose.yml
-docker compose up -d
+# Verify
+curl http://localhost:3300/health
+# {"service":"dakera","status":"healthy","version":"0.11.52"}
+```
+
+---
+
+## What's Inside
+
+One binary replaces five separate services your agents depend on:
+
+| Instead of | Dakera provides |
+|---|---|
+| Qdrant / Pinecone / Weaviate | Built-in HNSW · IVF · SPFresh vector index |
+| Elasticsearch / OpenSearch | BM25 full-text search engine |
+| OpenAI Embeddings | On-device ONNX embeddings — zero API calls |
+| Redis / Postgres memory layer | Decay-weighted agent memory with sessions |
+| Neo4j knowledge graph | Built-in entity graph with cross-agent network |
+
+**Core capabilities:**
+
+- **Hybrid retrieval** — vector + BM25 combined scoring in a single call
+- **Decay engine** — access-weighted importance; memories fade naturally when not recalled
+- **Knowledge graphs** — entity extraction, relationship storage, cross-agent network
+- **Session management** — group memories by session, generate session summaries
+- **MCP native** — 84 tools for Claude Desktop, Claude Code, Cursor, Windsurf
+- **Self-hosted** — your data never leaves your infrastructure
+
+---
+
+## Quick Start — Python
+
+```python
+pip install dakera
 ```
 
 ```python
-# Python SDK
-pip install dakera
-
 from dakera import DakeraClient
+
 client = DakeraClient(base_url="http://localhost:3300", api_key="your-key")
 
 # Store a memory
-client.memories.store(agent_id="my-agent", content="User prefers TypeScript", importance=0.8)
+client.memories.store(
+    agent_id="my-agent",
+    content="User prefers concise responses",
+    importance=0.8,
+    tags=["preference"]
+)
 
 # Recall relevant memories
-memories = client.memories.recall(agent_id="my-agent", query="coding preferences")
+memories = client.memories.recall(
+    agent_id="my-agent",
+    query="how does the user like responses?"
+)
+```
+
+## Quick Start — TypeScript
+
+```bash
+npm install dakera
 ```
 
 ```typescript
-// TypeScript SDK
-npm install dakera
-
 import { DakeraClient } from 'dakera';
+
 const client = new DakeraClient({ baseUrl: 'http://localhost:3300', apiKey: 'your-key' });
 
-// Store a memory
 await client.memories.store({
   agentId: 'my-agent',
-  content: 'User prefers TypeScript',
+  content: 'User prefers concise responses',
   importance: 0.8,
+  tags: ['preference'],
 });
 
-// Recall relevant memories
-const memories = await client.memories.recall({ agentId: 'my-agent', query: 'coding preferences' });
+const memories = await client.memories.recall({
+  agentId: 'my-agent',
+  query: 'how does the user like responses?',
+});
 ```
 
 ---
 
-## Open Source Packages
+## MCP — 84 Tools for AI Assistants
 
-| Package | Latest | Install |
-|---------|--------|---------|
-| [dakera-py](https://github.com/dakera-ai/dakera-py) | v0.11.51 | `pip install dakera` |
-| [@dakera-ai/dakera](https://github.com/dakera-ai/dakera-js) | v0.11.51 | `npm install dakera` |
-| [dakera-rs](https://github.com/dakera-ai/dakera-rs) | v0.11.51 | `cargo add dakera-client` |
-| [dakera-go](https://github.com/dakera-ai/dakera-go) | v0.11.51 | `go get github.com/dakera-ai/dakera-go` |
-| [dakera-cli](https://github.com/dakera-ai/dakera-cli) | v0.5.5 | `npm install -g @dakera-ai/cli` |
-| [dakera-mcp](https://github.com/dakera-ai/dakera-mcp) | v0.9.7 | bundled with server |
-| [dakera-docs](https://github.com/dakera-ai/dakera-docs) | — | documentation |
+Add Dakera to your AI assistant in 30 seconds:
 
----
-
-## MCP Integration (84 Tools)
-
-Dakera ships an MCP server with 84 tools across 8 categories. Works with Claude Desktop, Claude Code, Cursor, and any MCP-compatible host.
-
-**Tool categories:**
-- Memory CRUD — store, recall, batch recall, forget, update, importance tuning
-- Vector operations — upsert, query, hybrid search, multi-search, bulk operations
-- Knowledge graph — entity storage, relationship queries, cross-agent network
-- Session management — start/end sessions, session summaries, session memories
-- Namespace operations — create, configure, delete, list namespaces
-- Decay Engine — config, stats, decay scheduling
-- AutoPilot — trigger, status, automated lifecycle
-- Full-text index — index, search, stats, delete
+**Claude Desktop** (`~/Library/Application Support/Claude/claude_desktop_config.json`):
 
 ```json
 {
   "mcpServers": {
     "dakera": {
       "command": "dakera-mcp",
-      "env": { "DAKERA_API_URL": "http://localhost:3300", "DAKERA_API_KEY": "your-key" }
+      "env": {
+        "DAKERA_API_URL": "http://localhost:3300",
+        "DAKERA_API_KEY": "your-api-key"
+      }
     }
   }
 }
 ```
 
-→ Full reference: [MCP Reference](https://github.com/dakera-ai/dakera-docs/blob/main/docs/mcp.md)
+**Claude Code** (`.claude/settings.json` in your project):
+
+```json
+{
+  "mcpServers": {
+    "dakera": {
+      "command": "dakera-mcp",
+      "env": { "DAKERA_API_URL": "http://localhost:3300", "DAKERA_API_KEY": "your-api-key" }
+    }
+  }
+}
+```
+
+Tool categories: Memory CRUD · Vector Operations · Knowledge Graph · Sessions · Namespaces · Decay Engine · AutoPilot · Full-text Index
+
+→ [Full MCP reference](https://github.com/dakera-ai/dakera-docs/blob/main/docs/mcp.md)
 
 ---
 
-## Open Core Model
+## Open Source Packages
 
-The engine and dashboard are proprietary. **Everything you need to build with Dakera is open.** Everything that makes Dakera fast is ours.
+| Package | Version | Install |
+|---|---|---|
+| [dakera-py](https://github.com/dakera-ai/dakera-py) | `v0.11.51` | `pip install dakera` |
+| [dakera-js](https://github.com/dakera-ai/dakera-js) | `v0.11.51` | `npm install dakera` |
+| [dakera-rs](https://github.com/dakera-ai/dakera-rs) | `v0.11.51` | `cargo add dakera-client` |
+| [dakera-go](https://github.com/dakera-ai/dakera-go) | `v0.11.51` | `go get github.com/dakera-ai/dakera-go` |
+| [dakera-cli](https://github.com/dakera-ai/dakera-cli) | `v0.5.5` | `npm install -g @dakera-ai/cli` |
+| [dakera-mcp](https://github.com/dakera-ai/dakera-mcp) | `v0.9.7` | bundled with server |
+| [dakera-docs](https://github.com/dakera-ai/dakera-docs) | — | documentation |
 
-| Repo | License | What it is |
-|------|---------|-----------|
-| [dakera-py](https://github.com/dakera-ai/dakera-py) | MIT | Python SDK |
-| [dakera-js](https://github.com/dakera-ai/dakera-js) | MIT | TypeScript SDK |
-| [dakera-go](https://github.com/dakera-ai/dakera-go) | MIT | Go SDK |
-| [dakera-rs](https://github.com/dakera-ai/dakera-rs) | MIT | Rust client |
-| [dakera-cli](https://github.com/dakera-ai/dakera-cli) | MIT | CLI (`dk`) |
-| [dakera-mcp](https://github.com/dakera-ai/dakera-mcp) | MIT | MCP server |
-| [dakera-docs](https://github.com/dakera-ai/dakera-docs) | MIT | Documentation |
-| dakera | Proprietary | Core server engine |
-| dakera-dashboard | Proprietary | Web dashboard |
+All SDKs are MIT licensed. The core server engine and dashboard are proprietary.
 
 ---
 
 ## Documentation
 
-→ [**Getting Started**](https://github.com/dakera-ai/dakera-docs/blob/main/docs/getting-started.md) — Docker quick start, MCP setup, first SDK call in 10 minutes
-→ [**API Reference**](https://github.com/dakera-ai/dakera-docs/blob/main/API.md) — Complete REST + gRPC reference
-→ [**MCP Reference**](https://github.com/dakera-ai/dakera-docs/blob/main/docs/mcp.md) — 84 tools reference
-→ [**Deployment**](https://github.com/dakera-ai/dakera-docs/blob/main/DEPLOYMENT.md) — Docker, Kubernetes, AWS, GCP, Azure
-→ [**Architecture**](https://github.com/dakera-ai/dakera-docs/blob/main/ARCHITECTURE.md) — IVF indexing, BM25, SIMD, storage layer
-→ [**Benchmarks**](https://github.com/dakera-ai/dakera-docs/blob/main/BENCHMARKS.md) — HNSW, IVF, SPFresh throughput and latency
+| Guide | What it covers |
+|---|---|
+| [Getting Started](https://github.com/dakera-ai/dakera-docs/blob/main/docs/getting-started.md) | Docker setup, CLI init, first memory in 10 minutes |
+| [MCP Reference](https://github.com/dakera-ai/dakera-docs/blob/main/docs/mcp.md) | 84 tools, client setup, tool categories |
+| [API Reference](https://github.com/dakera-ai/dakera-docs/blob/main/API.md) | Complete REST API reference |
+| [Configuration](https://github.com/dakera-ai/dakera-docs/blob/main/CONFIGURATION.md) | All environment variables and tuning |
+| [Deployment](https://github.com/dakera-ai/dakera-docs/blob/main/DEPLOYMENT.md) | Docker, Kubernetes, AWS, GCP, Azure |
+| [Architecture](https://github.com/dakera-ai/dakera-docs/blob/main/ARCHITECTURE.md) | Storage layer, HNSW, BM25, decay engine |
+| [Python SDK](https://github.com/dakera-ai/dakera-docs/blob/main/docs/sdk-python.md) | Full Python SDK reference |
+| [TypeScript SDK](https://github.com/dakera-ai/dakera-docs/blob/main/docs/sdk-typescript.md) | Full TypeScript SDK reference |
 
 ---
 
-→ [dakera.ai](https://dakera.ai) · Early access open
-→ Built in Rust 🦀 · Single Binary · Sub-10ms Recall · Open Core · MIT SDKs
+<div align="center">
+  <a href="https://dakera.ai">dakera.ai</a> · Early access open · Built in Rust 🦀
+</div>
