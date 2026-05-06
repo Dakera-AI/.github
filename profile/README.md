@@ -6,9 +6,9 @@
 
 > Stop managing five services. Deploy one binary.
 
-[![Server](https://img.shields.io/badge/dakera-v0.9.14-blue)](https://github.com/dakera-ai/dakera-docs)
-[![MCP](https://img.shields.io/badge/dakera--mcp-v0.9.3-purple)](https://github.com/dakera-ai/dakera-mcp)
-[![SDKs](https://img.shields.io/badge/SDKs-v0.9.13-green)](https://github.com/dakera-ai/dakera-py)
+[![Server](https://img.shields.io/badge/dakera-v0.11.52-blue)](https://github.com/dakera-ai/dakera-docs)
+[![MCP](https://img.shields.io/badge/dakera--mcp-v0.9.7-purple)](https://github.com/dakera-ai/dakera-mcp)
+[![SDKs](https://img.shields.io/badge/SDKs-v0.11.51-green)](https://github.com/dakera-ai/dakera-py)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/dakera-ai/dakera-py/blob/main/LICENSE)
 
 ---
@@ -32,8 +32,8 @@ One binary replaces the separate services your AI agents currently depend on:
 - **Session management** — group memories by agent session with session summaries
 - **Decay engine** — access-weighted importance scoring; memories fade when not recalled
 - **AutoPilot** — automated memory lifecycle management
-- **MCP native** — 83 tools, works with Claude Desktop, Claude Code, Cursor out of the box
-- **Self-hosted** — PostgreSQL + pgvector; your data never leaves your infrastructure
+- **MCP native** — 84 tools, works with Claude Desktop, Claude Code, Cursor out of the box
+- **Self-hosted** — single Rust binary; your data never leaves your infrastructure
 
 ---
 
@@ -41,7 +41,7 @@ One binary replaces the separate services your AI agents currently depend on:
 
 ```bash
 # Docker (server)
-docker run -p 3000:3000 ghcr.io/dakera-ai/dakera:0.9.14
+docker run -p 3300:3300 ghcr.io/dakera-ai/dakera:latest
 
 # Or with Docker Compose (recommended)
 curl -O https://raw.githubusercontent.com/dakera-ai/dakera-deploy/main/docker-compose.yml
@@ -53,26 +53,31 @@ docker compose up -d
 pip install dakera
 
 from dakera import DakeraClient
-client = DakeraClient(base_url="http://localhost:3000", api_key="your-key")
+client = DakeraClient(base_url="http://localhost:3300", api_key="your-key")
 
 # Store a memory
-await client.store(agent_id="my-agent", content="User prefers TypeScript", importance=0.8)
+client.memories.store(agent_id="my-agent", content="User prefers TypeScript", importance=0.8)
 
 # Recall relevant memories
-memories = await client.recall(agent_id="my-agent", query="coding preferences")
+memories = client.memories.recall(agent_id="my-agent", query="coding preferences")
 ```
 
 ```typescript
 // TypeScript SDK
-npm install @dakera-ai/dakera
+npm install dakera
 
-import { DakeraClient } from '@dakera-ai/dakera';
-const client = new DakeraClient({ baseUrl: 'http://localhost:3000', apiKey: 'your-key' });
+import { DakeraClient } from 'dakera';
+const client = new DakeraClient({ baseUrl: 'http://localhost:3300', apiKey: 'your-key' });
 
-const memories = await client.batchRecall([
-  { agentId: 'agent-1', tags: ['important'], minImportance: 0.7 },
-  { agentId: 'agent-2', tags: ['context'] },
-]);
+// Store a memory
+await client.memories.store({
+  agentId: 'my-agent',
+  content: 'User prefers TypeScript',
+  importance: 0.8,
+});
+
+// Recall relevant memories
+const memories = await client.memories.recall({ agentId: 'my-agent', query: 'coding preferences' });
 ```
 
 ---
@@ -81,19 +86,19 @@ const memories = await client.batchRecall([
 
 | Package | Latest | Install |
 |---------|--------|---------|
-| [dakera-py](https://github.com/dakera-ai/dakera-py) | v0.9.13 | `pip install dakera` |
-| [@dakera-ai/dakera](https://github.com/dakera-ai/dakera-js) | v0.9.13 | `npm install @dakera-ai/dakera` |
-| [dakera-rs](https://github.com/dakera-ai/dakera-rs) | v0.9.13 | `cargo add dakera-client` |
-| [dakera-go](https://github.com/dakera-ai/dakera-go) | v0.9.13 | `go get github.com/dakera-ai/dakera-go` |
-| [dakera-cli](https://github.com/dakera-ai/dakera-cli) | v0.9.13 | `npm install -g @dakera-ai/cli` |
-| [dakera-mcp](https://github.com/dakera-ai/dakera-mcp) | v0.9.3 | bundled with server |
+| [dakera-py](https://github.com/dakera-ai/dakera-py) | v0.11.51 | `pip install dakera` |
+| [@dakera-ai/dakera](https://github.com/dakera-ai/dakera-js) | v0.11.51 | `npm install dakera` |
+| [dakera-rs](https://github.com/dakera-ai/dakera-rs) | v0.11.51 | `cargo add dakera-client` |
+| [dakera-go](https://github.com/dakera-ai/dakera-go) | v0.11.51 | `go get github.com/dakera-ai/dakera-go` |
+| [dakera-cli](https://github.com/dakera-ai/dakera-cli) | v0.5.5 | `npm install -g @dakera-ai/cli` |
+| [dakera-mcp](https://github.com/dakera-ai/dakera-mcp) | v0.9.7 | bundled with server |
 | [dakera-docs](https://github.com/dakera-ai/dakera-docs) | — | documentation |
 
 ---
 
-## MCP Integration (83 Tools)
+## MCP Integration (84 Tools)
 
-Dakera ships an MCP server with 83 tools across 8 categories. Works with Claude Desktop, Claude Code, Cursor, and any MCP-compatible host.
+Dakera ships an MCP server with 84 tools across 8 categories. Works with Claude Desktop, Claude Code, Cursor, and any MCP-compatible host.
 
 **Tool categories:**
 - Memory CRUD — store, recall, batch recall, forget, update, importance tuning
@@ -110,7 +115,7 @@ Dakera ships an MCP server with 83 tools across 8 categories. Works with Claude 
   "mcpServers": {
     "dakera": {
       "command": "dakera-mcp",
-      "env": { "DAKERA_API_URL": "http://localhost:3000", "DAKERA_API_KEY": "your-key" }
+      "env": { "DAKERA_API_URL": "http://localhost:3300", "DAKERA_API_KEY": "your-key" }
     }
   }
 }
@@ -142,7 +147,7 @@ The engine and dashboard are proprietary. **Everything you need to build with Da
 
 → [**Getting Started**](https://github.com/dakera-ai/dakera-docs/blob/main/docs/getting-started.md) — Docker quick start, MCP setup, first SDK call in 10 minutes
 → [**API Reference**](https://github.com/dakera-ai/dakera-docs/blob/main/API.md) — Complete REST + gRPC reference
-→ [**MCP Reference**](https://github.com/dakera-ai/dakera-docs/blob/main/docs/mcp.md) — 83 tools reference
+→ [**MCP Reference**](https://github.com/dakera-ai/dakera-docs/blob/main/docs/mcp.md) — 84 tools reference
 → [**Deployment**](https://github.com/dakera-ai/dakera-docs/blob/main/DEPLOYMENT.md) — Docker, Kubernetes, AWS, GCP, Azure
 → [**Architecture**](https://github.com/dakera-ai/dakera-docs/blob/main/ARCHITECTURE.md) — IVF indexing, BM25, SIMD, storage layer
 → [**Benchmarks**](https://github.com/dakera-ai/dakera-docs/blob/main/BENCHMARKS.md) — HNSW, IVF, SPFresh throughput and latency
