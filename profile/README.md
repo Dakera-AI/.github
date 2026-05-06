@@ -11,6 +11,7 @@
     <a href="https://dakera.ai/docs"><img src="https://img.shields.io/badge/server-v0.11.52-blue?style=flat-square" alt="Server v0.11.52" /></a>
     <a href="https://dakera.ai/docs#mcp"><img src="https://img.shields.io/badge/dakera--mcp-v0.9.7-8b5cf6?style=flat-square" alt="MCP v0.9.7" /></a>
     <a href="https://pypi.org/project/dakera/"><img src="https://img.shields.io/badge/SDKs-v0.11.51-22c55e?style=flat-square" alt="SDKs v0.11.51" /></a>
+    <img src="https://img.shields.io/badge/built_in-Rust-orange?style=flat-square" alt="Built in Rust" />
     <a href="https://github.com/dakera-ai/dakera-py/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="MIT License" /></a>
   </p>
 
@@ -19,7 +20,7 @@
     &nbsp;·&nbsp;
     <a href="https://dakera.ai/docs">Documentation</a>
     &nbsp;·&nbsp;
-    <a href="https://dakera.ai#cta"><strong>Join Early Access →</strong></a>
+    <a href="https://dakera.ai#cta"><strong>Request Early Access →</strong></a>
   </p>
 
   <p><em>ذاكرة — Dhākira — Arabic for memory</em></p>
@@ -31,9 +32,35 @@
 
 Every AI agent session starts from zero. Thousands of interactions — zero retained knowledge. You're paying to re-teach your agents the same things, every time.
 
-Dakera gives your agents **persistent, compounding memory** backed by production-grade vector search, hybrid retrieval, knowledge graphs, and built-in embeddings — in one self-hosted Rust binary.
+Dakera gives your agents **persistent, compounding memory** backed by production-grade vector search, hybrid retrieval, knowledge graphs, and built-in ML embeddings — in one self-hosted Rust binary.
 
 > Stop managing five services. Deploy one binary.
+
+---
+
+## How It Works
+
+```
+1. Store  →  Your agent writes a memory (content + importance score)
+2. Recall →  Query by meaning — hybrid vector + BM25 retrieval returns ranked results
+3. Decay  →  Memories auto-decay by access pattern; important ones rise, stale ones fade
+```
+
+Everything runs inside the same process — no sidecars, no embedding APIs, no message queues.
+
+---
+
+## Performance
+
+| Metric | Value |
+|---|---|
+| LoCoMo recall benchmark | **87.8%** |
+| p99 query latency | **< 10 ms** |
+| Insert throughput | **27.4M / second** |
+| Binary size | **~44 MB** |
+| External runtime dependencies | **0** |
+
+Benchmarked against the full 1,540-question LoCoMo conversational recall suite.
 
 ---
 
@@ -159,5 +186,5 @@ All SDKs are MIT licensed. The core engine and dashboard are proprietary.
 ---
 
 <div align="center">
-  <a href="https://dakera.ai">dakera.ai</a> &nbsp;·&nbsp; Early access open &nbsp;·&nbsp; Built in Rust 🦀 &nbsp;·&nbsp; <a href="https://dakera.ai#cta">Join the waitlist →</a>
+  <a href="https://dakera.ai">dakera.ai</a> &nbsp;·&nbsp; Waitlist now open &nbsp;·&nbsp; Built in Rust 🦀 &nbsp;·&nbsp; <a href="https://dakera.ai#cta">Request early access →</a>
 </div>
