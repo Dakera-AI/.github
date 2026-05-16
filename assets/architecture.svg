@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#16a34a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="720" height="420" rx="12" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="360" y="36" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#22c55e">DAKERA SERVER</text>
+  <text x="360" y="52" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8">Single Rust Binary — Zero External Dependencies</text>
+
+  <!-- API Layer -->
+  <rect x="30" y="70" width="120" height="100" rx="8" fill="url(#card)" stroke="#334155" stroke-width="1"/>
+  <text x="90" y="92" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#e2e8f0">API Layer</text>
+  <text x="90" y="112" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">REST</text>
+  <text x="90" y="128" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">gRPC</text>
+  <text x="90" y="144" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">MCP (84 tools)</text>
+  <text x="90" y="160" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">WebSocket</text>
+
+  <!-- ML Router -->
+  <rect x="180" y="70" width="150" height="100" rx="8" fill="url(#card)" stroke="#334155" stroke-width="1"/>
+  <text x="255" y="92" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#e2e8f0">ML Router</text>
+  <text x="255" y="112" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">Query Classification</text>
+  <text x="255" y="128" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">ONNX Embeddings</text>
+  <text x="255" y="144" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">Temporal Inference</text>
+  <text x="255" y="160" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">Smart Routing</text>
+
+  <!-- Storage Layer -->
+  <rect x="360" y="70" width="330" height="100" rx="8" fill="url(#card)" stroke="#334155" stroke-width="1"/>
+  <text x="525" y="92" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#e2e8f0">Storage Layer</text>
+  <!-- Vector -->
+  <rect x="375" y="102" width="70" height="56" rx="4" fill="#0f172a" stroke="#22c55e" stroke-width="0.5"/>
+  <text x="410" y="122" text-anchor="middle" font-family="monospace" font-size="8" fill="#22c55e">Vector</text>
+  <text x="410" y="136" text-anchor="middle" font-family="monospace" font-size="7" fill="#64748b">HNSW+IVF</text>
+  <text x="410" y="148" text-anchor="middle" font-family="monospace" font-size="7" fill="#64748b">Cosine/Dot</text>
+  <!-- BM25 -->
+  <rect x="455" y="102" width="70" height="56" rx="4" fill="#0f172a" stroke="#3b82f6" stroke-width="0.5"/>
+  <text x="490" y="122" text-anchor="middle" font-family="monospace" font-size="8" fill="#3b82f6">BM25</text>
+  <text x="490" y="136" text-anchor="middle" font-family="monospace" font-size="7" fill="#64748b">Full-text</text>
+  <text x="490" y="148" text-anchor="middle" font-family="monospace" font-size="7" fill="#64748b">Inverted Idx</text>
+  <!-- KG -->
+  <rect x="535" y="102" width="70" height="56" rx="4" fill="#0f172a" stroke="#a855f7" stroke-width="0.5"/>
+  <text x="570" y="122" text-anchor="middle" font-family="monospace" font-size="8" fill="#a855f7">Knowledge</text>
+  <text x="570" y="136" text-anchor="middle" font-family="monospace" font-size="7" fill="#64748b">Graph</text>
+  <text x="570" y="148" text-anchor="middle" font-family="monospace" font-size="7" fill="#64748b">Entities</text>
+  <!-- RocksDB -->
+  <rect x="615" y="102" width="60" height="56" rx="4" fill="#0f172a" stroke="#f59e0b" stroke-width="0.5"/>
+  <text x="645" y="122" text-anchor="middle" font-family="monospace" font-size="8" fill="#f59e0b">RocksDB</text>
+  <text x="645" y="136" text-anchor="middle" font-family="monospace" font-size="7" fill="#64748b">Persist</text>
+  <text x="645" y="148" text-anchor="middle" font-family="monospace" font-size="7" fill="#64748b">WAL</text>
+
+  <!-- Arrows: API → ML Router -->
+  <line x1="150" y1="120" x2="180" y2="120" stroke="#22c55e" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- Arrows: ML Router → Storage -->
+  <line x1="330" y1="120" x2="360" y2="120" stroke="#22c55e" stroke-width="1.5"/>
+
+  <!-- RRF Fusion & Reranker -->
+  <rect x="180" y="200" width="200" height="70" rx="8" fill="url(#card)" stroke="#334155" stroke-width="1"/>
+  <text x="280" y="222" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#e2e8f0">RRF Fusion + Reranker</text>
+  <text x="280" y="242" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">Reciprocal Rank Fusion</text>
+  <text x="280" y="258" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">Cross-encoder Reranking</text>
+
+  <!-- Decay Engine -->
+  <rect x="410" y="200" width="200" height="70" rx="8" fill="url(#card)" stroke="#334155" stroke-width="1"/>
+  <text x="510" y="222" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#e2e8f0">Decay Engine</text>
+  <text x="510" y="242" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">Importance × Recency</text>
+  <text x="510" y="258" text-anchor="middle" font-family="monospace" font-size="9" fill="#94a3b8">Configurable Half-life</text>
+
+  <!-- SDKs at bottom -->
+  <rect x="30" y="300" width="660" height="90" rx="8" fill="url(#card)" stroke="#334155" stroke-width="1"/>
+  <text x="360" y="322" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#e2e8f0">Native SDKs &amp; Integrations</text>
+
+  <!-- SDK boxes -->
+  <rect x="50" y="335" width="80" height="40" rx="4" fill="#0f172a" stroke="#22c55e" stroke-width="0.5"/>
+  <text x="90" y="355" text-anchor="middle" font-family="monospace" font-size="9" fill="#22c55e">Python</text>
+  <text x="90" y="368" text-anchor="middle" font-family="monospace" font-size="7" fill="#64748b">pip install</text>
+
+  <rect x="145" y="335" width="80" height="40" rx="4" fill="#0f172a" stroke="#3b82f6" stroke-width="0.5"/>
+  <text x="185" y="355" text-anchor="middle" font-family="monospace" font-size="9" fill="#3b82f6">TypeScript</text>
+  <text x="185" y="368" text-anchor="middle" font-family="monospace" font-size="7" fill="#64748b">npm install</text>
+
+  <rect x="240" y="335" width="80" height="40" rx="4" fill="#0f172a" stroke="#f59e0b" stroke-width="0.5"/>
+  <text x="280" y="355" text-anchor="middle" font-family="monospace" font-size="9" fill="#f59e0b">Rust</text>
+  <text x="280" y="368" text-anchor="middle" font-family="monospace" font-size="7" fill="#64748b">cargo add</text>
+
+  <rect x="335" y="335" width="80" height="40" rx="4" fill="#0f172a" stroke="#06b6d4" stroke-width="0.5"/>
+  <text x="375" y="355" text-anchor="middle" font-family="monospace" font-size="9" fill="#06b6d4">Go</text>
+  <text x="375" y="368" text-anchor="middle" font-family="monospace" font-size="7" fill="#64748b">go get</text>
+
+  <rect x="430" y="335" width="80" height="40" rx="4" fill="#0f172a" stroke="#a855f7" stroke-width="0.5"/>
+  <text x="470" y="355" text-anchor="middle" font-family="monospace" font-size="9" fill="#a855f7">LangChain</text>
+  <text x="470" y="368" text-anchor="middle" font-family="monospace" font-size="7" fill="#64748b">integration</text>
+
+  <rect x="525" y="335" width="80" height="40" rx="4" fill="#0f172a" stroke="#a855f7" stroke-width="0.5"/>
+  <text x="565" y="355" text-anchor="middle" font-family="monospace" font-size="9" fill="#a855f7">LlamaIndex</text>
+  <text x="565" y="368" text-anchor="middle" font-family="monospace" font-size="7" fill="#64748b">integration</text>
+
+  <rect x="620" y="335" width="55" height="40" rx="4" fill="#0f172a" stroke="#a855f7" stroke-width="0.5"/>
+  <text x="647" y="355" text-anchor="middle" font-family="monospace" font-size="9" fill="#a855f7">+3</text>
+  <text x="647" y="368" text-anchor="middle" font-family="monospace" font-size="7" fill="#64748b">more</text>
+
+  <!-- Connection lines -->
+  <path d="M 280 270 L 280 300" stroke="#334155" stroke-width="1" stroke-dasharray="4,2"/>
+  <path d="M 510 270 L 510 300" stroke="#334155" stroke-width="1" stroke-dasharray="4,2"/>
+  <path d="M 525 170 L 510 200" stroke="#334155" stroke-width="1" stroke-dasharray="4,2"/>
+  <path d="M 255 170 L 280 200" stroke="#334155" stroke-width="1" stroke-dasharray="4,2"/>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6" fill="none" stroke="#22c55e" stroke-width="1"/>
+    </marker>
+  </defs>
+
+  <!-- Footer -->
+  <text x="360" y="410" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#64748b">Single binary · ~44 MB · Zero external runtime dependencies · Self-hosted</text>
+</svg>
