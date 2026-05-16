@@ -17,11 +17,12 @@ Persistent · Searchable · Decay-weighted · Self-hosted · Built in Rust
 <br />
 
 [![Python SDK](https://img.shields.io/pypi/v/dakera?label=python-sdk&style=flat-square&color=22c55e)](https://pypi.org/project/dakera/)
-[![LangChain](https://img.shields.io/pypi/v/langchain-dakera?label=langchain&style=flat-square&color=3b82f6)](https://pypi.org/project/langchain-dakera/)
-[![LlamaIndex](https://img.shields.io/pypi/v/llamaindex-dakera?label=llamaindex&style=flat-square&color=3b82f6)](https://pypi.org/project/llamaindex-dakera/)
-[![CrewAI](https://img.shields.io/pypi/v/crewai-dakera?label=crewai&style=flat-square&color=3b82f6)](https://pypi.org/project/crewai-dakera/)
-[![AutoGen](https://img.shields.io/pypi/v/autogen-dakera?label=autogen&style=flat-square&color=3b82f6)](https://pypi.org/project/autogen-dakera/)
-[![Helm](https://img.shields.io/badge/helm-dakera--deploy-8b5cf6?style=flat-square)](https://github.com/dakera-ai/dakera-deploy)
+[![TypeScript SDK](https://img.shields.io/npm/v/@dakera-ai/dakera?label=typescript-sdk&style=flat-square&color=3b82f6)](https://www.npmjs.com/package/@dakera-ai/dakera)
+[![LangChain](https://img.shields.io/pypi/v/langchain-dakera?label=langchain&style=flat-square&color=8b5cf6)](https://pypi.org/project/langchain-dakera/)
+[![LlamaIndex](https://img.shields.io/pypi/v/llamaindex-dakera?label=llamaindex&style=flat-square&color=8b5cf6)](https://pypi.org/project/llamaindex-dakera/)
+[![CrewAI](https://img.shields.io/pypi/v/crewai-dakera?label=crewai&style=flat-square&color=8b5cf6)](https://pypi.org/project/crewai-dakera/)
+[![AutoGen](https://img.shields.io/pypi/v/autogen-dakera?label=autogen&style=flat-square&color=8b5cf6)](https://pypi.org/project/autogen-dakera/)
+[![Helm](https://img.shields.io/badge/helm-dakera--deploy-f59e0b?style=flat-square)](https://github.com/dakera-ai/dakera-deploy)
 [![Built in Rust](https://img.shields.io/badge/built_in-Rust-orange?style=flat-square)](#)
 [![MIT License](https://img.shields.io/badge/SDKs-MIT-blue?style=flat-square)](https://github.com/dakera-ai/dakera-py/blob/main/LICENSE)
 
@@ -45,27 +46,9 @@ Every AI agent session starts from zero. Thousands of interactions — zero reta
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                         DAKERA SERVER (single binary)                │
-│                                                                     │
-│  ┌──────────┐    ┌──────────────┐    ┌───────────────────────────┐  │
-│  │  REST /  │    │   ML Router  │    │     Storage Layer         │  │
-│  │  gRPC /  │───▶│  (Classify & │───▶│  ┌────────┐ ┌────────┐   │  │
-│  │   MCP    │    │   Route)     │    │  │ Vector │ │  BM25  │   │  │
-│  └──────────┘    └──────────────┘    │  │ (HNSW) │ │ Index  │   │  │
-│       ▲                              │  └────────┘ └────────┘   │  │
-│       │          ┌──────────────┐    │  ┌────────┐ ┌────────┐   │  │
-│       │          │  ONNX Embed  │    │  │  KG /  │ │RocksDB │   │  │
-│       │          │  (on-device) │    │  │ Graph  │ │Persist │   │  │
-│       │          └──────────────┘    │  └────────┘ └────────┘   │  │
-│       │                              └───────────────────────────┘  │
-│       │          ┌──────────────┐    ┌───────────────────────────┐  │
-│       └──────────│  RRF Fusion  │◀───│  Reranker + Decay Engine  │  │
-│                  │  & Results   │    │  (importance × recency)   │  │
-│                  └──────────────┘    └───────────────────────────┘  │
-└─────────────────────────────────────────────────────────────────────┘
-```
+<div align="center">
+<img src="https://raw.githubusercontent.com/Dakera-AI/.github/main/assets/architecture.svg" alt="Dakera Architecture" width="100%" />
+</div>
 
 <br />
 
@@ -73,13 +56,14 @@ Every AI agent session starts from zero. Thousands of interactions — zero reta
 
 | Metric | Value |
 |:---|:---|
-| **LoCoMo recall benchmark** | **87.6%** |
+| **LoCoMo recall benchmark** | **87.6%** overall |
+| **Category breakdown** | Cat1 87.2% · Cat2 86.3% · Cat3 72.0% · Cat4 90.6% |
 | **p99 query latency** | < 10 ms |
 | **Insert throughput** | 27.4M / second |
 | **Binary size** | ~44 MB |
 | **External runtime deps** | **0** |
 
-<sub>Benchmarked on the full 1,540-question LoCoMo conversational memory suite.</sub>
+<sub>Benchmarked on the full 1,540-question LoCoMo conversational memory suite (v0.11.55).</sub>
 
 <br />
 
@@ -125,7 +109,21 @@ memories = client.memories.recall(agent_id="my-agent", query="language preferenc
 
 **TypeScript:**
 ```bash
-npm install dakera  # coming soon — use REST API directly
+npm install @dakera-ai/dakera
+```
+```typescript
+import { DakeraClient } from '@dakera-ai/dakera';
+
+const client = new DakeraClient({ baseUrl: 'http://localhost:3300', apiKey: 'my-key' });
+
+await client.memories.store({
+  agentId: 'my-agent',
+  content: 'User prefers TypeScript over Python',
+  importance: 0.8,
+  tags: ['preference'],
+});
+
+const memories = await client.memories.recall({ agentId: 'my-agent', query: 'language preferences' });
 ```
 
 <br />
@@ -158,7 +156,7 @@ Add persistent memory to Claude, Cursor, or Windsurf:
 | Package | Version | Install |
 |:---|:---|:---|
 | [dakera-py](https://github.com/dakera-ai/dakera-py) | [![PyPI](https://img.shields.io/pypi/v/dakera?style=flat-square)](https://pypi.org/project/dakera/) | `pip install dakera` |
-| [dakera-js](https://github.com/dakera-ai/dakera-js) | [![GitHub](https://img.shields.io/github/v/release/dakera-ai/dakera-js?style=flat-square&label=version)](https://github.com/dakera-ai/dakera-js/releases) | `npm install dakera` |
+| [dakera-js](https://github.com/dakera-ai/dakera-js) | [![npm](https://img.shields.io/npm/v/@dakera-ai/dakera?style=flat-square)](https://www.npmjs.com/package/@dakera-ai/dakera) | `npm install @dakera-ai/dakera` |
 | [dakera-rs](https://github.com/dakera-ai/dakera-rs) | [![GitHub](https://img.shields.io/github/v/release/dakera-ai/dakera-rs?style=flat-square&label=version)](https://github.com/dakera-ai/dakera-rs/releases) | `cargo add dakera-client` |
 | [dakera-go](https://github.com/dakera-ai/dakera-go) | [![GitHub](https://img.shields.io/github/v/release/dakera-ai/dakera-go?style=flat-square&label=version)](https://github.com/dakera-ai/dakera-go/releases) | `go get github.com/dakera-ai/dakera-go` |
 | [dakera-cli](https://github.com/dakera-ai/dakera-cli) | [![GitHub](https://img.shields.io/github/v/release/dakera-ai/dakera-cli?style=flat-square&label=version)](https://github.com/dakera-ai/dakera-cli/releases) | `cargo install dakera-cli` |
@@ -172,7 +170,7 @@ Add persistent memory to Claude, Cursor, or Windsurf:
 | [dakera-llamaindex](https://github.com/dakera-ai/dakera-llamaindex) | [![PyPI](https://img.shields.io/pypi/v/llamaindex-dakera?style=flat-square)](https://pypi.org/project/llamaindex-dakera/) | `pip install llamaindex-dakera` |
 | [dakera-crewai](https://github.com/dakera-ai/dakera-crewai) | [![PyPI](https://img.shields.io/pypi/v/crewai-dakera?style=flat-square)](https://pypi.org/project/crewai-dakera/) | `pip install crewai-dakera` |
 | [dakera-autogen](https://github.com/dakera-ai/dakera-autogen) | [![PyPI](https://img.shields.io/pypi/v/autogen-dakera?style=flat-square)](https://pypi.org/project/autogen-dakera/) | `pip install autogen-dakera` |
-| [dakera-langchain-js](https://github.com/dakera-ai/dakera-langchain-js) | [![GitHub](https://img.shields.io/github/v/release/dakera-ai/dakera-langchain-js?style=flat-square&label=version)](https://github.com/dakera-ai/dakera-langchain-js/releases) | `npm install langchain-dakera` |
+| [dakera-langchain-js](https://github.com/dakera-ai/dakera-langchain-js) | [![npm](https://img.shields.io/npm/v/langchain-dakera?style=flat-square)](https://www.npmjs.com/package/langchain-dakera) | `npm install langchain-dakera` |
 
 <sub>All SDKs and integrations are MIT licensed. The core engine is proprietary.</sub>
 

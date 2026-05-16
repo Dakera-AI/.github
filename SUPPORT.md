@@ -4,7 +4,7 @@
 
 Official documentation, quickstart guides, and API reference:
 
-**[dakera-docs](https://github.com/dakera-ai/dakera-docs)**
+**[dakera.ai/docs](https://dakera.ai/docs)**
 
 ## Bug Reports and Feature Requests
 
@@ -17,7 +17,7 @@ Use the **Issues** tab on the relevant SDK repository:
 | [dakera-rs](https://github.com/dakera-ai/dakera-rs/issues) | Rust SDK |
 | [dakera-go](https://github.com/dakera-ai/dakera-go/issues) | Go SDK |
 
-For bugs in the MCP server, CLI, or core engine, open an issue via the relevant SDK repository or email [support@dakera.ai](mailto:support@dakera.ai).
+For bugs in the MCP server, CLI, or core engine, open an issue on the relevant SDK repository or use [GitHub Discussions](https://github.com/orgs/dakera-ai/discussions).
 
 Please include steps to reproduce, expected behavior, and actual behavior.
 
@@ -25,10 +25,8 @@ Please include steps to reproduce, expected behavior, and actual behavior.
 
 Do **not** open a public issue for security concerns.
 
-See [SECURITY.md](SECURITY.md) for responsible disclosure instructions, or email [security@dakera.ai](mailto:security@dakera.ai).
+See [SECURITY.md](SECURITY.md) for responsible disclosure via GitHub Security Advisories.
 
 ## Enterprise and Commercial Enquiries
 
-For enterprise deployments, commercial licensing, or partnership discussions:
-
-**[dakera.ai](https://dakera.ai)**
+Visit **[dakera.ai](https://dakera.ai)** for enterprise deployments, commercial licensing, or partnership discussions.

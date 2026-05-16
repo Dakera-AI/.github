@@ -4,15 +4,8 @@
 
 If you discover a security vulnerability in any Dakera repository, **please do not open a public issue**.
 
-**Preferred method — GitHub Private Security Reporting:**
+**Use GitHub Private Security Reporting:**
 Navigate to the affected repository → **Security** tab → **Report a vulnerability**. This creates a private advisory visible only to maintainers and keeps the disclosure confidential until a fix is ready.
-
-**Alternatively:** Email [security@dakera.ai](mailto:security@dakera.ai) with:
-
-- A description of the vulnerability
-- Steps to reproduce
-- Potential impact
-- Suggested fix (if any)
 
 We will acknowledge receipt within 48 hours and aim to provide an initial assessment within 5 business days.
 

@@ -6,15 +6,16 @@ Thanks for your interest in contributing to Dakera! This guide applies to all re
 
 Dakera is a multi-crate Rust project compiled into a single binary. The core engine handles agent memory, hybrid search (vector + BM25), built-in inference, and knowledge graph operations. A REST API, gRPC interface, MCP server, and WebAssembly dashboard sit above the engine. Native SDKs (Python, TypeScript, Rust, Go) wrap the REST API.
 
-Before contributing, it's worth reading the [documentation](https://github.com/dakera-ai/dakera-docs) to understand the memory model and API surface. Dev setup instructions are in each repository's README.
+Before contributing, read the [documentation](https://dakera.ai/docs) to understand the memory model and API surface. Dev setup instructions are in each repository's README.
 
 ## Getting Started
 
-1. **Fork** the repository you want to contribute to
-2. **Clone** your fork locally
-3. **Create a branch** for your changes (`git checkout -b feature/my-change`)
-4. **Make your changes** and commit with clear messages
-5. **Push** to your fork and open a **Pull Request**
+1. **Clone** the repository you want to contribute to
+2. **Create a branch** for your changes (`git checkout -b feature/my-change`)
+3. **Make your changes** and commit with clear messages
+4. **Push** your branch and open a **Pull Request**
+
+> **Note:** Do not fork. Clone the repo directly and work on a branch.
 
 ## Pull Request Guidelines
 
