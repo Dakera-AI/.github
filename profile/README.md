@@ -128,7 +128,7 @@ const memories = await client.memories.recall({ agentId: 'my-agent', query: 'lan
 
 <br />
 
-## MCP — 84 Tools for AI Assistants
+## MCP — 83 Tools for AI Assistants
 
 Add persistent memory to Claude, Cursor, or Windsurf:
 
@@ -143,7 +143,7 @@ Add persistent memory to Claude, Cursor, or Windsurf:
 }
 ```
 
-84 tools: Memory CRUD · Vector Operations · Knowledge Graph · Sessions · Namespaces · Decay Engine · AutoPilot · Full-text Index
+83 tools: Memory CRUD · Vector Operations · Knowledge Graph · Sessions · Namespaces · Decay Engine · AutoPilot · Full-text Index
 
 → [MCP documentation](https://dakera.ai/docs#mcp)
 

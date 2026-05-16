@@ -10,12 +10,11 @@ Before contributing, read the [documentation](https://dakera.ai/docs) to underst
 
 ## Getting Started
 
-1. **Clone** the repository you want to contribute to
-2. **Create a branch** for your changes (`git checkout -b feature/my-change`)
-3. **Make your changes** and commit with clear messages
-4. **Push** your branch and open a **Pull Request**
-
-> **Note:** Do not fork. Clone the repo directly and work on a branch.
+1. **Fork** the repository you want to contribute to
+2. **Clone** your fork locally
+3. **Create a branch** for your changes (`git checkout -b feature/my-change`)
+4. **Make your changes** and commit with clear messages
+5. **Push** your branch and open a **Pull Request** against the upstream repository
 
 ## Pull Request Guidelines
 
