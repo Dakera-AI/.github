@@ -12,7 +12,13 @@
 
 ### The memory engine for AI agents
 
-Persistent · Searchable · Decay-weighted · Self-hosted · Built in Rust
+Give your agents memory that persists, compounds, and decays naturally — in one self-hosted Rust binary.
+
+<br />
+
+[![Website](https://img.shields.io/badge/dakera.ai-Visit_Website-22c55e?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIi8+PGxpbmUgeDE9IjIiIHkxPSIxMiIgeDI9IjIyIiB5Mj0iMTIiLz48cGF0aCBkPSJNMTIgMmExNS4zIDE1LjMgMCAwIDEgNCAxMCAxNS4zIDE1LjMgMCAwIDEtNCA4Ii8+PHBhdGggZD0iTTEyIDJhMTUuMyAxNS4zIDAgMCAwLTQgMTAgMTUuMyAxNS4zIDAgMCAwIDQgMTAiLz48L3N2Zz4=)](https://dakera.ai)
+[![Docs](https://img.shields.io/badge/Documentation-Read_the_Docs-3b82f6?style=for-the-badge)](https://dakera.ai/docs)
+[![Early Access](https://img.shields.io/badge/Early_Access-Request_Now-f59e0b?style=for-the-badge)](https://dakera.ai#cta)
 
 <br />
 
@@ -26,21 +32,24 @@ Persistent · Searchable · Decay-weighted · Self-hosted · Built in Rust
 [![Built in Rust](https://img.shields.io/badge/built_in-Rust-orange?style=flat-square)](#)
 [![MIT License](https://img.shields.io/badge/SDKs-MIT-blue?style=flat-square)](https://github.com/dakera-ai/dakera-py/blob/main/LICENSE)
 
-<br />
-
-[**dakera.ai**](https://dakera.ai) · [Documentation](https://dakera.ai/docs) · [Quickstart](https://dakera.ai/docs/quickstart) · [Request Early Access →](https://dakera.ai#cta)
-
 <sub><em>ذاكرة — Dhākira — Arabic for memory</em></sub>
 
 </div>
 
 <br />
 
-## The Problem
+## Why Dakera?
 
-Every AI agent session starts from zero. Thousands of interactions — zero retained knowledge. You're paying to re-teach your agents the same things, every conversation.
+Every AI agent session starts from zero. Thousands of interactions — zero retained knowledge. You're paying to re-teach your agents the same things, every single conversation.
 
-**Dakera solves this.** One self-hosted Rust binary gives your agents persistent, compounding memory — backed by hybrid search, knowledge graphs, and built-in ML embeddings.
+**Dakera fixes this permanently.** One self-hosted Rust binary gives your agents persistent, compounding memory — backed by hybrid search, knowledge graphs, built-in ML embeddings, and intelligent decay.
+
+### What makes Dakera different
+
+- **All-in-one**: Vector search + BM25 + knowledge graph + sessions + decay — one binary, zero dependencies
+- **Self-hosted**: Your data never leaves your infrastructure. No API calls to external embedding services
+- **Production-grade**: 27.4M inserts/sec, < 10ms p99 query latency, ~44 MB binary
+- **Framework-native**: Drop-in integrations for LangChain, LlamaIndex, CrewAI, AutoGen, and MCP
 
 <br />
 
@@ -78,6 +87,18 @@ Every AI agent session starts from zero. Thousands of interactions — zero reta
 | Neo4j | Knowledge graph with entity extraction |
 
 > Stop managing five services. Deploy one binary.
+
+<br />
+
+## Use Cases
+
+| Use Case | How Dakera Helps |
+|:---|:---|
+| **Customer support agents** | Remember user preferences, past issues, and context across sessions |
+| **Coding assistants** | Retain project context, decisions, and patterns between sessions |
+| **Multi-agent workflows** | Share knowledge between agents via namespaces and cross-agent recall |
+| **Personal AI assistants** | Build compounding understanding of users over time |
+| **RAG pipelines** | Server-side vector store with built-in embeddings — no external API needed |
 
 <br />
 
@@ -130,7 +151,7 @@ const memories = await client.memories.recall({ agentId: 'my-agent', query: 'lan
 
 ## MCP — 83 Tools for AI Assistants
 
-Add persistent memory to Claude, Cursor, or Windsurf:
+Add persistent memory to Claude, Cursor, or Windsurf in under a minute:
 
 ```json
 {
@@ -170,7 +191,7 @@ Add persistent memory to Claude, Cursor, or Windsurf:
 | [dakera-llamaindex](https://github.com/dakera-ai/dakera-llamaindex) | [![PyPI](https://img.shields.io/pypi/v/llamaindex-dakera?style=flat-square)](https://pypi.org/project/llamaindex-dakera/) | `pip install llamaindex-dakera` |
 | [dakera-crewai](https://github.com/dakera-ai/dakera-crewai) | [![PyPI](https://img.shields.io/pypi/v/crewai-dakera?style=flat-square)](https://pypi.org/project/crewai-dakera/) | `pip install crewai-dakera` |
 | [dakera-autogen](https://github.com/dakera-ai/dakera-autogen) | [![PyPI](https://img.shields.io/pypi/v/autogen-dakera?style=flat-square)](https://pypi.org/project/autogen-dakera/) | `pip install autogen-dakera` |
-| [dakera-langchain-js](https://github.com/dakera-ai/dakera-langchain-js) | [![npm](https://img.shields.io/npm/v/langchain-dakera?style=flat-square)](https://www.npmjs.com/package/langchain-dakera) | `npm install langchain-dakera` |
+| [dakera-langchain-js](https://github.com/dakera-ai/dakera-langchain-js) | [![npm](https://img.shields.io/npm/v/@dakera-ai/langchain?style=flat-square)](https://www.npmjs.com/package/@dakera-ai/langchain) | `npm install langchain-dakera` |
 
 <sub>All SDKs and integrations are MIT licensed. The core engine is proprietary.</sub>
 
@@ -198,8 +219,17 @@ helm install dakera oci://ghcr.io/dakera-ai/dakera-helm/dakera \
 
 <div align="center">
 
-<a href="https://dakera.ai">dakera.ai</a> · <a href="https://dakera.ai/docs">Docs</a> · <a href="https://github.com/dakera-ai">GitHub</a> · <a href="https://dakera.ai#cta">Request Early Access →</a>
+### Ready to give your agents memory?
 
-<sub>Built with Rust · Self-hosted · Zero dependencies · 87.6% LoCoMo</sub>
+<br />
+
+[![Get Started](https://img.shields.io/badge/Get_Started-Read_the_Docs-3b82f6?style=for-the-badge)](https://dakera.ai/docs/quickstart)
+[![Request Access](https://img.shields.io/badge/Request-Early_Access-22c55e?style=for-the-badge)](https://dakera.ai#cta)
+
+<br />
+
+<a href="https://dakera.ai">dakera.ai</a> · <a href="https://dakera.ai/docs">Docs</a> · <a href="https://dakera.ai/docs/quickstart">Quickstart</a> · <a href="https://github.com/dakera-ai">GitHub</a>
+
+<sub>Built with Rust · Self-hosted · Zero dependencies · 87.6% LoCoMo recall</sub>
 
 </div>
