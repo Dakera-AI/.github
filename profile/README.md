@@ -164,7 +164,7 @@ Add persistent memory to Claude, Cursor, or Windsurf in under a minute:
 }
 ```
 
-83 tools: Memory CRUD · Vector Operations · Knowledge Graph · Sessions · Namespaces · Decay Engine · AutoPilot · Full-text Index
+14 core tools (86+ via profiles): Memory CRUD · Vector Operations · Knowledge Graph · Sessions · Namespaces · Decay Engine · AutoPilot · Full-text Index
 
 → [MCP documentation](https://dakera.ai/docs#mcp)
 
