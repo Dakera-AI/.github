@@ -149,7 +149,7 @@ const memories = await client.memories.recall({ agentId: 'my-agent', query: 'lan
 
 <br />
 
-## MCP — 83 Tools for AI Assistants
+## MCP — 86 Tools for AI Assistants
 
 Add persistent memory to Claude, Cursor, or Windsurf in under a minute:
 
