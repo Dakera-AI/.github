@@ -65,14 +65,14 @@ Every AI agent session starts from zero. Thousands of interactions — zero reta
 
 | Metric | Value |
 |:---|:---|
-| **LoCoMo recall benchmark** | **87.6%** overall |
-| **Category breakdown** | Cat1 87.2% · Cat2 86.3% · Cat3 72.0% · Cat4 90.6% |
+| **LoCoMo recall benchmark** | **88.2% Recall@20** (LLM-judge scored) |
+| **Category breakdown** | Cat1 86.9% · Cat2 85.4% · Cat3 73.9% · Cat4 91.0% |
 | **p99 query latency** | < 10 ms |
 | **Insert throughput** | 27.4M / second |
 | **Binary size** | ~44 MB |
 | **External runtime deps** | **0** |
 
-<sub>Benchmarked on the full 1,540-question LoCoMo conversational memory suite (v0.11.55).</sub>
+<sub>Benchmarked on the full 1,540-question LoCoMo conversational memory suite (v0.11.104).</sub>
 
 <br />
 
@@ -230,6 +230,6 @@ helm install dakera oci://ghcr.io/dakera-ai/dakera-helm/dakera \
 
 <a href="https://dakera.ai">dakera.ai</a> · <a href="https://dakera.ai/docs">Docs</a> · <a href="https://dakera.ai/docs/quickstart">Quickstart</a> · <a href="https://github.com/dakera-ai">GitHub</a>
 
-<sub>Built with Rust · Self-hosted · Zero dependencies · 87.6% LoCoMo recall</sub>
+<sub>Built with Rust · Self-hosted · Zero dependencies · 88.2% LoCoMo Recall@20</sub>
 
 </div>
