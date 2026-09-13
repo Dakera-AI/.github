@@ -48,7 +48,7 @@ Every AI agent session starts from zero. Thousands of interactions — zero reta
 
 - **All-in-one**: Vector search + BM25 + knowledge graph + sessions + decay — one binary, zero dependencies
 - **Self-hosted**: Your data never leaves your infrastructure. No API calls to external embedding services
-- **Production-grade**: < 50ms p99 query latency, ~90 MB self-contained binary, zero external runtime dependencies
+- **Production-grade**: in-memory hybrid retrieval with no LLM in the path, ~90 MB self-contained binary, zero external runtime dependencies
 - **Framework-native**: Drop-in integrations for LangChain, LlamaIndex, CrewAI, AutoGen, and MCP
 
 <br />
@@ -67,7 +67,6 @@ Every AI agent session starts from zero. Thousands of interactions — zero reta
 |:---|:---|
 | **LoCoMo recall benchmark** | **88.2% Recall@20** (LLM-judged retrieval recall) |
 | **Category breakdown** | Cat1 86.9% · Cat2 85.4% · Cat3 73.9% · Cat4 91.0% |
-| **p99 query latency** | < 50 ms |
 | **Binary size** | ~90 MB |
 | **External runtime deps** | **0** |
 
