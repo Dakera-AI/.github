@@ -48,7 +48,7 @@ Every AI agent session starts from zero. Thousands of interactions — zero reta
 
 - **All-in-one**: Vector search + BM25 + knowledge graph + sessions + decay — one binary, zero dependencies
 - **Self-hosted**: Your data never leaves your infrastructure. No API calls to external embedding services
-- **Production-grade**: 27.4M inserts/sec, < 10ms p99 query latency, ~44 MB binary
+- **Production-grade**: < 10ms P99 query latency (v0.11.107, warm in-memory index, top_k=20; no LLM in the path), ~90 MB self-contained binary, zero external runtime dependencies
 - **Framework-native**: Drop-in integrations for LangChain, LlamaIndex, CrewAI, AutoGen, and MCP
 
 <br />
@@ -65,14 +65,13 @@ Every AI agent session starts from zero. Thousands of interactions — zero reta
 
 | Metric | Value |
 |:---|:---|
-| **LoCoMo recall benchmark** | **88.2% Recall@20** (LLM-judge scored) |
+| **LoCoMo recall benchmark** | **88.2% Recall@20** (LLM-judged retrieval recall) |
 | **Category breakdown** | Cat1 86.9% · Cat2 85.4% · Cat3 73.9% · Cat4 91.0% |
-| **p99 query latency** | < 10 ms |
-| **Insert throughput** | 27.4M / second |
-| **Binary size** | ~44 MB |
+| **p99 query latency** | < 10 ms (v0.11.107, warm in-memory index, top_k=20) |
+| **Binary size** | ~90 MB |
 | **External runtime deps** | **0** |
 
-<sub>Benchmarked on the full 1,540-question LoCoMo conversational memory suite (v0.11.104).</sub>
+<sub>Recall@20 on the LoCoMo evaluation set — 10 conversations, 1,536 evaluated questions (adversarial category excluded), no LLM in the retrieval path. Dakera v0.11.107.</sub>
 
 <br />
 
@@ -105,8 +104,8 @@ Every AI agent session starts from zero. Thousands of interactions — zero reta
 ## Quick Start
 
 ```bash
-docker run -d -p 3300:3300 -e DAKERA_API_KEY=my-key ghcr.io/dakera-ai/dakera:latest
-curl http://localhost:3300/health
+docker run -d -p 3000:3000 -e DAKERA_ROOT_API_KEY=my-key ghcr.io/dakera-ai/dakera:latest
+curl http://localhost:3000/health
 ```
 
 **Python:**
@@ -116,7 +115,7 @@ pip install dakera
 ```python
 from dakera import DakeraClient
 
-client = DakeraClient(base_url="http://localhost:3300", api_key="my-key")
+client = DakeraClient(base_url="http://localhost:3000", api_key="my-key")
 
 client.memories.store(
     agent_id="my-agent",
@@ -135,7 +134,7 @@ npm install @dakera-ai/dakera
 ```typescript
 import { DakeraClient } from '@dakera-ai/dakera';
 
-const client = new DakeraClient({ baseUrl: 'http://localhost:3300', apiKey: 'my-key' });
+const client = new DakeraClient({ baseUrl: 'http://localhost:3000', apiKey: 'my-key' });
 
 await client.memories.store({
   agentId: 'my-agent',
@@ -158,7 +157,7 @@ Add persistent memory to Claude, Cursor, or Windsurf in under a minute:
   "mcpServers": {
     "dakera": {
       "command": "dakera-mcp",
-      "env": { "DAKERA_API_URL": "http://localhost:3300", "DAKERA_API_KEY": "your-key" }
+      "env": { "DAKERA_API_URL": "http://localhost:3000", "DAKERA_API_KEY": "your-key" }
     }
   }
 }
@@ -201,8 +200,8 @@ Add persistent memory to Claude, Cursor, or Windsurf in under a minute:
 
 ```bash
 # Docker
-docker run -d -p 3300:3300 -p 3500:3500 \
-  -e DAKERA_API_KEY=my-key \
+docker run -d -p 3000:3000 -p 3500:3500 \
+  -e DAKERA_ROOT_API_KEY=my-key \
   ghcr.io/dakera-ai/dakera:latest
 
 # Helm (Kubernetes)
