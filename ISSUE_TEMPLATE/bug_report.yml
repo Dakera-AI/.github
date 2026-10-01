@@ -51,7 +51,7 @@ body:
     attributes:
       label: Client version
       description: SDK, CLI or MCP server version, if the issue involves one
-      placeholder: "e.g., dakera-py 0.12.13 / dk 0.7.1 / dakera-mcp 0.10.12"
+      placeholder: "e.g. dakera-py 0.12.12, dk 0.7.1, dakera-mcp 0.10.12"
   - type: dropdown
     id: deployment
     attributes:

@@ -1,37 +1,41 @@
-# Security Policy
+# Security policy
 
-## Reporting a Vulnerability
+## Reporting a vulnerability
 
-If you discover a security vulnerability in any Dakera repository, **please do not open a public issue**.
+Report security issues privately. **Do not open a public issue, pull request or discussion.**
 
-**Use GitHub Private Security Reporting:**
-Navigate to the affected repository → **Security** tab → **Report a vulnerability**. This creates a private advisory visible only to maintainers and keeps the disclosure confidential until a fix is ready.
+Send a message to the [Dakera LinkedIn page](https://linkedin.com/company/dakera-ai) with "Security" in it, so it reaches the right people. We acknowledge reports within 5 business days.
 
-We will acknowledge receipt within 48 hours and aim to provide an initial assessment within 5 business days.
+Include, where you can:
 
-For the core engine, whose repository is private, you can also contact us through our [LinkedIn page](https://linkedin.com/company/dakera-ai) with "Security" in the message, as the engine's security policy describes.
+- the affected component and version (server version from `GET /health`, or the SDK, CLI or MCP server version);
+- a description of the issue and its impact;
+- steps to reproduce, and any logs or proof of concept.
 
-## Supported Versions
+## Supported versions
 
-Security fixes are applied to the latest released version, as stated in the engine's own security policy. We recommend always running the most recent release.
+Security fixes go into the latest release. Run the most recent version.
 
 | Component | Supported | Not supported |
 |:--|:--|:--|
-| Dakera engine | 0.12.x (current line, 0.12.0 released 2026-10-01) | 0.11.x and earlier |
-| SDKs, CLI, MCP server, integrations | The latest release of each repository | Earlier releases |
+| Dakera server | Latest `0.12.x` release | `0.11.x` and earlier: upgrade to `0.12.x` |
+| SDKs, integrations, CLI, MCP server, Helm chart | Latest release of each | Earlier releases |
 
-Deployments on v0.11.108 can upgrade in place, and can go back with `dakera downgrade` if needed; see the upgrade guide in the [documentation](https://dakera.ai/docs). Dakera is in public alpha.
+Deployments on v0.11.108 upgrade in place to v0.12.0 and can go back with `dakera downgrade`. See the [upgrade guide](https://dakera.ai/docs/upgrade-from-v0-11-108). Dakera is in public alpha.
 
-## Data Handling
+## Disclosure
 
-The self-hosted engine processes all memory data on your own infrastructure. Encryption at rest is available (AES-256-GCM, `DAKERA_ENCRYPTION_KEY`). The engine sends operational telemetry that never includes content, ids, secrets or paths, and that you can turn off with `DAKERA_TELEMETRY=0` or `DO_NOT_TRACK=1`; the full list is in the engine's `docs/telemetry.md`.
+- We follow coordinated disclosure: we work with you on a fix before anything is made public.
+- We credit reporters who want to be credited.
+- Advisories are published as GitHub Security Advisories on the affected repository.
 
-## Disclosure Policy
+## Data handling
 
-- We follow coordinated disclosure. We will work with you to understand and address the issue before any public disclosure.
-- Credit will be given to reporters unless they prefer to remain anonymous.
-- We will publish security advisories through GitHub Security Advisories.
+- The self-hosted server processes memory data on your infrastructure. Memory content is never sent to Dakera.
+- Encryption at rest uses AES-256-GCM (`DAKERA_ENCRYPTION_KEY`). Since v0.12.0 each sealed value is bound to its record, and keys live in a replicated keyring that can be rotated one namespace at a time.
+- API keys are required by default, on gRPC as well as REST since v0.12.0. Cluster traffic is authenticated with `DAKERA_CLUSTER_SECRET`.
+- The server sends product telemetry: never memory content, ids, secrets or paths, but it includes the machine's hostname, and the collector records the connecting IP address. Turn it off with `DAKERA_TELEMETRY=0` or `DO_NOT_TRACK=1`. Details: [telemetry docs](https://dakera.ai/docs/telemetry).
 
 ## Scope
 
-This policy applies to all repositories under the [Dakera-AI](https://github.com/Dakera-AI) organization.
+This policy covers every repository in the [Dakera-AI](https://github.com/Dakera-AI) organization and the Dakera server image, `ghcr.io/dakera-ai/dakera`.

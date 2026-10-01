@@ -1,46 +1,48 @@
 # Contributing to Dakera
 
-Thanks for your interest in contributing to Dakera! This guide applies to all repositories under the [Dakera-AI](https://github.com/Dakera-AI) organization.
+Thank you for helping. This guide applies to every public repository in the [Dakera-AI](https://github.com/Dakera-AI) organization.
 
-## Architecture Overview
+## What is open to contributions
 
-Dakera is a multi-crate Rust project compiled into a single binary. The core engine handles agent memory, hybrid search (vector + BM25), built-in inference, and knowledge graph operations. A REST API, gRPC interface, MCP server, and WebAssembly dashboard sit above the engine. Native SDKs (Python, TypeScript, Rust, Go) wrap the REST API. The core engine's source is private; the SDKs, CLI, MCP server, integrations, deployment configs and package repositories are public and accept contributions.
+The Dakera server is a Rust engine distributed as a container image; its source is private. Everything around it is public and accepts pull requests:
 
-Before contributing, read the [documentation](https://dakera.ai/docs) to understand the memory model and API surface. Dev setup instructions are in each repository's README.
+- **SDKs:** [dakera-py](https://github.com/Dakera-AI/dakera-py), [dakera-js](https://github.com/Dakera-AI/dakera-js), [dakera-go](https://github.com/Dakera-AI/dakera-go), [dakera-rs](https://github.com/Dakera-AI/dakera-rs)
+- **Integrations:** LangChain, LangChain.js, LlamaIndex, CrewAI, AutoGen, Vercel AI SDK, Strands Agents
+- **Tools:** [dakera-cli](https://github.com/Dakera-AI/dakera-cli), [dakera-mcp](https://github.com/Dakera-AI/dakera-mcp), and the Homebrew, apt and rpm package repositories
+- **Deployment:** [dakera-deploy](https://github.com/Dakera-AI/dakera-deploy), [dakera-helm](https://github.com/Dakera-AI/dakera-helm)
 
-## Getting Started
+For server behaviour you would like changed, open an issue on [dakera-deploy](https://github.com/Dakera-AI/dakera-deploy/issues). Read the [documentation](https://dakera.ai/docs) for the memory model and the API first. Each repository's README explains its development setup.
 
-1. **Fork** the repository you want to contribute to
-2. **Clone** your fork locally
-3. **Create a branch** for your changes (`git checkout -b feature/my-change`)
-4. **Make your changes** and commit with clear messages
-5. **Push** your branch and open a **Pull Request** against the upstream repository
+## Workflow
 
-## Pull Request Guidelines
+1. For anything larger than a small fix, open an issue first so we can agree on the approach.
+2. Fork the repository and create a branch (`git checkout -b fix/short-description`).
+3. Make the change, with tests, and update the documentation when public behaviour changes.
+4. Run the repository's tests and linters locally.
+5. Open a pull request against `main` and fill in the template.
 
-- Keep PRs focused on a single change
-- Include tests for new functionality
-- Update documentation if your change affects public APIs
-- Follow the existing code style and conventions
-- Write clear commit messages describing *why*, not just *what*
+## Pull requests
 
-## Commit Messages
+- One change per pull request.
+- New behaviour comes with tests; bug fixes come with a test that failed before.
+- Follow the existing style of the repository.
+- Explain *why* in the description, not only *what*.
 
-We follow [Conventional Commits](https://www.conventionalcommits.org/):
+## Commit messages
+
+We use [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
 feat: add hybrid search weight parameter
-fix: correct cosine similarity calculation for zero vectors
-docs: update quickstart example
-test: add integration tests for clustering
+fix: retry recall on 503 with Retry-After
+docs: update the quickstart
+test: cover namespace quota errors
 ```
 
-## Reporting Issues
+## Reporting issues
 
-- Use the issue tracker on the relevant repository
-- Include steps to reproduce, expected behavior, and actual behavior
-- For security vulnerabilities, see [SECURITY.md](SECURITY.md)
+Use the issue tracker of the relevant repository; [SUPPORT.md](SUPPORT.md) lists them. Report security issues privately, as [SECURITY.md](SECURITY.md) describes.
 
-## Code of Conduct
+## Code of conduct
 
-All participants are expected to follow our [Code of Conduct](CODE_OF_CONDUCT.md). Be respectful, constructive, and inclusive.
+Everyone taking part follows our [Code of Conduct](CODE_OF_CONDUCT.md).

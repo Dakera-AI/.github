@@ -2,10 +2,10 @@ blank_issues_enabled: false
 contact_links:
   - name: Documentation
     url: https://dakera.ai/docs
-    about: Read the docs before opening an issue — your answer might be there.
-  - name: Feature Discussions
-    url: https://github.com/orgs/dakera-ai/discussions
-    about: Suggest features or discuss ideas with the community.
-  - name: Security Vulnerability
-    url: https://github.com/dakera-ai/.github/security/advisories/new
-    about: Report security issues privately via GitHub Security Advisories.
+    about: Guides, API reference and troubleshooting. Many answers are already there.
+  - name: Report a security vulnerability
+    url: https://github.com/Dakera-AI/.github/blob/main/SECURITY.md
+    about: Never in a public issue. Follow the security policy to report privately.
+  - name: Dakera server issues
+    url: https://github.com/Dakera-AI/dakera-deploy/issues
+    about: The server's source is private; report server bugs on dakera-deploy.

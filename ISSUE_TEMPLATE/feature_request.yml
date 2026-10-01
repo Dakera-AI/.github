@@ -28,13 +28,15 @@ body:
       label: Component
       description: Which part of Dakera does this relate to?
       options:
-        - Core Engine
+        - Dakera server
         - Python SDK
-        - JavaScript SDK
+        - TypeScript / JavaScript SDK
         - Go SDK
         - Rust SDK
-        - CLI
-        - MCP Server
+        - Framework integration
+        - CLI (dk)
+        - MCP server
+        - Deployment (Compose, Kubernetes, Helm)
         - Dashboard
         - Documentation
         - Other

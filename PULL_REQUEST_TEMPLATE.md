@@ -1,57 +1,30 @@
 ## Summary
 
-<!-- Brief description of what this PR does -->
-
-## Affected Component(s)
-
-<!-- Which area(s) does this change touch? -->
-
-- [ ] Core engine / memory
-- [ ] Search (vector / full-text / hybrid)
-- [ ] Knowledge graph
-- [ ] Auth / RBAC
-- [ ] API (REST / gRPC)
-- [ ] MCP server
-- [ ] Dashboard
-- [ ] CLI
-- [ ] SDK (Python / TypeScript / Rust / Go)
-- [ ] Deployment / infrastructure
-- [ ] Documentation
-
-## Changes
-
-<!-- Bullet list of specific changes -->
-
--
-
-## Motivation
-
-<!-- Why is this change needed? Link to issue if applicable -->
+<!-- What does this pull request change, and why? -->
 
 Closes #
 
-## Breaking Change?
+## Type of change
 
-- [ ] Yes — describe the breaking change and migration path below
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Documentation
+- [ ] Refactor, build or CI
+
+## Breaking change
+
 - [ ] No
-
-<!-- If yes, describe what breaks and how to migrate: -->
+- [ ] Yes: what breaks and how to migrate is described below
 
 ## Testing
 
-<!-- How was this tested? -->
+<!-- How did you test it? Include the server version you tested against (`/health`) when it matters. -->
 
-- [ ] Unit tests added/updated
-- [ ] Integration tests pass
-- [ ] Manual testing performed
-
-## Screenshots / Evidence
-
-<!-- For UI changes or anything visual — attach screenshots or recordings.
-     For API changes — paste example request/response. -->
+- [ ] Tests added or updated
+- [ ] Existing tests pass locally
 
 ## Checklist
 
-- [ ] Code follows existing style and conventions
-- [ ] Documentation updated (if applicable)
-- [ ] No breaking changes (or clearly documented above)
+- [ ] Follows the repository's style and [Conventional Commits](https://www.conventionalcommits.org/)
+- [ ] Documentation updated where public behaviour changes
+- [ ] No secrets, keys or personal data in code, tests or logs

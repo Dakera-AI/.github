@@ -1,153 +1,292 @@
-<div align="center">
+<p align="center">
+  <a href="https://dakera.ai">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="/profile/assets/banner-dark.png">
+      <source media="(prefers-color-scheme: light)" srcset="/profile/assets/banner-light.png">
+      <img alt="Dakera: self-hosted memory for AI agents" src="/profile/assets/banner-light.png" width="100%">
+    </picture>
+  </a>
+</p>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Dakera-AI/.github/main/assets/logo.png">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Dakera-AI/.github/main/assets/logo.png">
-  <img src="https://raw.githubusercontent.com/Dakera-AI/.github/main/assets/logo.png" width="72" height="72" alt="Dakera AI" />
-</picture>
+<h3 align="center">Long-term memory for AI agents, on your own hardware.</h3>
 
-<br />
+<p align="center">
+  One self-hosted engine for storing and recalling what your agents learn: hybrid vector, full-text and graph recall,<br>
+  embeddings and reranking built in, on CPU, with no LLM call at recall time.
+</p>
 
-# Dakera AI
+<p align="center">
+  <a href="https://dakera.ai/docs/whats-new"><img alt="Release v0.12.0" src="https://img.shields.io/badge/release-v0.12.0-D4A843?style=flat-square&labelColor=1a1712"></a>
+  <a href="https://dakera.ai/docs"><img alt="Documentation" src="https://img.shields.io/badge/docs-dakera.ai%2Fdocs-D4A843?style=flat-square&labelColor=1a1712"></a>
+  <a href="https://dakera.ai/benchmark"><img alt="LoCoMo 88.2% Recall@20" src="https://img.shields.io/badge/LoCoMo-88.2%25%20Recall%4020-D4A843?style=flat-square&labelColor=1a1712"></a>
+  <a href="https://pypi.org/project/dakera/"><img alt="PyPI" src="https://img.shields.io/pypi/v/dakera?style=flat-square&label=pypi&labelColor=1a1712&color=D4A843"></a>
+  <a href="https://www.npmjs.com/package/@dakera-ai/dakera"><img alt="npm" src="https://img.shields.io/npm/v/%40dakera-ai%2Fdakera?style=flat-square&label=npm&labelColor=1a1712&color=D4A843"></a>
+  <a href="#licence"><img alt="SDKs MIT" src="https://img.shields.io/badge/SDKs-MIT-D4A843?style=flat-square&labelColor=1a1712"></a>
+</p>
 
-### Self-hosted memory for AI agents
+<p align="center">
+  <a href="https://dakera.ai"><b>Website</b></a> &nbsp;·&nbsp;
+  <a href="https://dakera.ai/docs"><b>Docs</b></a> &nbsp;·&nbsp;
+  <a href="#quickstart"><b>Quickstart</b></a> &nbsp;·&nbsp;
+  <a href="https://dakera.ai/benchmark"><b>Benchmark</b></a> &nbsp;·&nbsp;
+  <a href="https://dakera.ai/blog/dakera-v0-12-0-release"><b>What's new in v0.12.0</b></a>
+</p>
 
-Persistent, session-aware memory for agents: hybrid vector and full-text recall, a knowledge graph and decay-weighted importance, served by one self-hosted Rust engine with built-in embeddings. Your data stays on your infrastructure.
+<br>
 
-<br />
+## What Dakera is
 
-[![Website](https://img.shields.io/badge/dakera.ai-Website-22c55e?style=for-the-badge)](https://dakera.ai)
-[![Docs](https://img.shields.io/badge/Documentation-latest-3b82f6?style=for-the-badge)](https://dakera.ai/docs)
-[![Docker](https://img.shields.io/badge/ghcr.io-dakera:0.12.0-f59e0b?style=for-the-badge)](https://github.com/orgs/Dakera-AI/packages)
+Dakera is a self-hosted memory engine for AI agents. Agents **store** what they learn and **recall** it later by meaning, keyword, time and relationship, across sessions and across agents.
 
-<sub><em>ذاكرة — Dhākira — Arabic for memory</em></sub>
+It ships as one container image with its models inside: embeddings, a cross-encoder reranker and entity extraction run locally on CPU. Recall never calls an LLM, so cost and latency stay predictable, and your data never leaves your infrastructure.
 
-</div>
+Under the hood: HNSW and IVF vector indexes, BM25 full text, a knowledge graph, sessions, namespaces and decay-weighted importance, served over REST, gRPC and MCP.
 
-<br />
+<br>
 
-## Dakera v0.12.0
+## Why Dakera
 
-Released 2026-10-01. An unchanged v0.11.108 deployment upgrades in place, and going back is one command (`dakera downgrade`). Read the upgrade guide in the [documentation](https://dakera.ai/docs) before upgrading: a few behaviours change (gRPC needs an API key, namespace quotas are enforced, ranking and `smart_score` scale change, a stored backup schedule starts running).
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h4>Multilingual</h4>
+      <p><code>bge-m3</code> embeddings, full-text stemming and stop words per language, CJK bigrams, and dates understood in seven query languages, with a per-request <code>lang</code>.</p>
+    </td>
+    <td width="50%" valign="top">
+      <h4>Multimodal</h4>
+      <p>File attachments per agent, speech to text that turns audio into memories, and visual search over document pages. Each is opt-in, with one variable.</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <h4>Multi-vector records and late interaction</h4>
+      <p>Records keep one indexed vector plus named token and patch multivectors. Late interaction (<code>colbert-small</code>) reranks with per-token MaxSim.</p>
+    </td>
+    <td valign="top">
+      <h4>Measured performance</h4>
+      <p>Reranked recall <b>11.5&nbsp;s → 6.2&nbsp;s</b>. Container memory after reranking <b>4.98 → 0.65&nbsp;GB</b>. HNSW memory per vector <b>−43&nbsp;%</b> at the same recall@10. Vector search p95 <b>1.17&nbsp;ms</b> at 50k vectors.</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <h4>Security hardening</h4>
+      <p>API keys on REST and gRPC, authenticated cluster traffic, AES-256-GCM encryption at rest with values bound to their record, and a replicated keyring rotated one namespace at a time.</p>
+    </td>
+    <td valign="top">
+      <h4>One-command rollback</h4>
+      <p>v0.11.108 upgrades in place. <code>dakera downgrade</code> converts a stopped deployment's data back, and refuses, changing nothing, when it cannot do so safely.</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <h4>Clustering and tiered storage</h4>
+      <p>Versioned replication that merges instead of overwriting, a durable outbox, and filesystem, S3 or tiered hot / warm / cold storage that survives S3 outages.</p>
+    </td>
+    <td valign="top">
+      <h4>Built for operators</h4>
+      <p>Live and ready health checks while models load, a <code>--check-config</code> dry run before a rollout, Prometheus metrics, alert rules and a Grafana dashboard.</p>
+    </td>
+  </tr>
+</table>
 
-- **Faster, leaner recall.** In a paired run against v0.11.108, recall p50 went from 3.8 s to 1.8 s and resident memory from 2.4 GB to 0.97 GB. Reranked recall went from 11.5 s to 6.2 s, and container memory after reranking from 4.98 GB to 0.65 GB.
-- **Security.** gRPC requires an API key, cluster traffic is authenticated, encrypted values are bound to their record with a replicated keyring, and keys pinned to namespaces no longer reach node-wide admin routes.
-- **Reliability.** Versioned, merging cluster replication; durable tiered storage that survives S3 outages; live and ready health endpoints that answer while models download.
-- **Opt-in features.** Multimodal memory (attachments, speech to text, image indexing, records), late interaction, multilingual search (`bge-m3`), RaBitQ search mode and `GET /v1/capabilities`. All are off by default.
-- **Smaller image.** `ghcr.io/dakera-ai/dakera:0.12.0` is about 0.8 GB (783 MB measured, amd64) and ships its default models, so it starts without a download.
+<sub>Performance figures compare v0.12.0 with v0.11.108 on the same hardware: reranked recall at <code>top_k</code> 16 in a 4 CPU / 8 GiB container; HNSW figures on BEIR Quora, 50k 1024-d vectors. Details in the <a href="https://dakera.ai/docs/whats-new">release notes</a>.</sub>
 
-Full list: the release notes in the [documentation](https://dakera.ai/docs), including the known limitations.
+<br>
 
-<br />
+## Quickstart
 
-## Benchmark
-
-| Metric | Value |
-|:---|:---|
-| **LoCoMo recall benchmark** | **88.2% Recall@20** (LLM-judged retrieval recall) |
-| **Category breakdown** | Cat1 86.9% · Cat2 85.4% · Cat3 73.9% · Cat4 91.0% |
-
-<sub>Recall@20 on the LoCoMo evaluation set — 10 conversations, 1,536 evaluated questions (adversarial category excluded), no LLM in the retrieval path. Dakera v0.11.107.</sub>
-
-<br />
-
-## Quick start
-
-A fresh install with authentication on needs a root API key. The image ships its default models; the second volume keeps any other model you enable.
+**1. Run the server.** A fresh install with authentication on needs a root API key. The image ships its default models, so it starts without a download.
 
 ```bash
-docker run -d --name dakera \
-  -p 3000:3000 \
+export DAKERA_API_KEY="dk-$(openssl rand -hex 16)"
+
+docker run -d --name dakera -p 3000:3000 \
   -v dakera-data:/data \
   -v dakera-models:/app/models \
-  -e DAKERA_ROOT_API_KEY=dk-mykey \
+  -e DAKERA_ROOT_API_KEY="$DAKERA_API_KEY" \
   -e DAKERA_STORAGE=filesystem \
   ghcr.io/dakera-ai/dakera:0.12.0
 
-curl http://localhost:3000/health/ready   # 200 once the models are loaded
-curl http://localhost:3000/health
+curl -s http://localhost:3000/health/ready   # 200 once the models are loaded
 ```
 
-`:latest` tracks the newest release; pin a version in production. Run `dakera --check-config` against your environment before a rollout. Kubernetes (Helm), Docker Compose, clustering and air-gapped installs are covered in [dakera-deploy](https://github.com/Dakera-AI/dakera-deploy), [dakera-helm](https://github.com/Dakera-AI/dakera-helm) and the docs.
+**2. Store a memory, then recall it.**
+
+```bash
+curl -s http://localhost:3000/v1/memory/store \
+  -H "Authorization: Bearer $DAKERA_API_KEY" -H "Content-Type: application/json" \
+  -d '{"agent_id": "my-agent", "importance": 0.8,
+       "content": "The user prefers concise answers with code examples"}'
+
+curl -s http://localhost:3000/v1/memory/recall \
+  -H "Authorization: Bearer $DAKERA_API_KEY" -H "Content-Type: application/json" \
+  -d '{"agent_id": "my-agent", "query": "How does the user like answers?", "top_k": 5}'
+```
+
+<details>
+<summary><b>Python</b> &nbsp;<code>pip install dakera</code></summary>
 
 ```python
-pip install dakera
-
+import os
 from dakera import DakeraClient
 
-client = DakeraClient(base_url="http://localhost:3000", api_key="dk-mykey")
-client.memories.store(agent_id="my-agent", content="User prefers TypeScript over Python",
-                      importance=0.8, tags=["preference"])
-memories = client.memories.recall(agent_id="my-agent", query="language preferences")
+client = DakeraClient(base_url="http://localhost:3000", api_key=os.environ["DAKERA_API_KEY"])
+
+client.store_memory(
+    agent_id="my-agent",
+    content="The user prefers concise answers with code examples",
+    importance=0.8,
+    tags=["preference"],
+)
+
+response = client.recall(agent_id="my-agent", query="How does the user like answers?", top_k=5)
+for memory in response.memories:
+    print(f"{memory.score:.2f}  {memory.content}")
 ```
 
-<br />
+</details>
 
-## What Dakera combines
+<details>
+<summary><b>TypeScript</b> &nbsp;<code>npm install @dakera-ai/dakera</code></summary>
 
-| Instead of running separately | Dakera provides |
-|:---|:---|
-| A vector database | HNSW and IVF vector indexes |
-| A full-text search service | BM25 full-text search |
-| A hosted embeddings API | Local ONNX inference, models in the image |
-| A key-value store for agent memory | Decay-weighted memories, sessions and namespaces |
-| A graph database | A knowledge graph with entity extraction |
+```typescript
+import { DakeraClient } from '@dakera-ai/dakera';
 
-<br />
+const client = new DakeraClient({ baseUrl: 'http://localhost:3000', apiKey: process.env.DAKERA_API_KEY });
+
+await client.storeMemory('my-agent', {
+  content: 'The user prefers concise answers with code examples',
+  importance: 0.8,
+  tags: ['preference'],
+});
+
+const { memories } = await client.recall('my-agent', 'How does the user like answers?', { top_k: 5 });
+memories.forEach((m) => console.log(m.score.toFixed(2), m.content));
+```
+
+</details>
+
+<sub>The snippets use the released SDKs (<code>dakera</code> 0.12.12 on PyPI, <code>@dakera-ai/dakera</code> 0.11.106 on npm), which cover these calls on a v0.12.0 server. Client releases with the v0.12 additions are coming. Pin an image version in production; <code>:latest</code> tracks the newest release.</sub>
+
+<br>
+
+## Benchmark
+
+<table>
+  <tr>
+    <td colspan="4" align="center"><h3>88.2% Recall@20</h3><sub><b>LoCoMo recall benchmark</b> · LLM-judged retrieval recall</sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="25%"><b>86.9%</b><br><sub>Cat1</sub></td>
+    <td align="center" width="25%"><b>85.4%</b><br><sub>Cat2</sub></td>
+    <td align="center" width="25%"><b>73.9%</b><br><sub>Cat3</sub></td>
+    <td align="center" width="25%"><b>91.0%</b><br><sub>Cat4</sub></td>
+  </tr>
+</table>
+
+<sub>Recall@20 on the LoCoMo evaluation set — 10 conversations, 1,536 evaluated questions (adversarial category excluded), no LLM in the retrieval path. Dakera v0.11.107.</sub>
+
+Methodology and results: **[dakera.ai/benchmark](https://dakera.ai/benchmark)**
+
+<br>
 
 ## Ecosystem
 
-The core engine is proprietary and distributed as a container image. The repositories below are public. SDK, CLI and MCP support for v0.12.0 is in review as draft pull requests and is not released yet; until it is, use the current releases (they work with v0.11.108).
+The Dakera server is distributed as a container image, [`ghcr.io/dakera-ai/dakera`](https://github.com/orgs/Dakera-AI/packages/container/package/dakera). Everything else below is open source.
 
-### Server, deployment and tooling
+<table>
+  <tr><th align="left" width="38%">Repository</th><th align="left">Install</th></tr>
+  <tr><td colspan="2"><b>SDKs</b></td></tr>
+  <tr><td><a href="https://github.com/Dakera-AI/dakera-py">dakera-py</a> &nbsp;<sub>Python</sub></td><td><code>pip install dakera</code></td></tr>
+  <tr><td><a href="https://github.com/Dakera-AI/dakera-js">dakera-js</a> &nbsp;<sub>TypeScript / JavaScript</sub></td><td><code>npm install @dakera-ai/dakera</code></td></tr>
+  <tr><td><a href="https://github.com/Dakera-AI/dakera-go">dakera-go</a> &nbsp;<sub>Go</sub></td><td><code>go get github.com/dakera-ai/dakera-go</code></td></tr>
+  <tr><td><a href="https://github.com/Dakera-AI/dakera-rs">dakera-rs</a> &nbsp;<sub>Rust</sub></td><td><code>cargo add dakera-client</code></td></tr>
+  <tr><td colspan="2"><b>Framework integrations</b></td></tr>
+  <tr><td><a href="https://github.com/Dakera-AI/dakera-langchain">dakera-langchain</a> &nbsp;<sub>LangChain</sub></td><td><code>pip install langchain-dakera</code></td></tr>
+  <tr><td><a href="https://github.com/Dakera-AI/dakera-langchain-js">dakera-langchain-js</a> &nbsp;<sub>LangChain.js</sub></td><td><code>npm install @dakera-ai/langchain</code></td></tr>
+  <tr><td><a href="https://github.com/Dakera-AI/dakera-llamaindex">dakera-llamaindex</a> &nbsp;<sub>LlamaIndex</sub></td><td><code>pip install llamaindex-dakera</code></td></tr>
+  <tr><td><a href="https://github.com/Dakera-AI/dakera-crewai">dakera-crewai</a> &nbsp;<sub>CrewAI</sub></td><td><code>pip install crewai-dakera</code></td></tr>
+  <tr><td><a href="https://github.com/Dakera-AI/dakera-autogen">dakera-autogen</a> &nbsp;<sub>AutoGen</sub></td><td><code>pip install autogen-dakera</code></td></tr>
+  <tr><td><a href="https://github.com/Dakera-AI/dakera-ai-sdk">dakera-ai-sdk</a> &nbsp;<sub>Vercel AI SDK</sub></td><td><code>npm install @dakera-ai/ai-sdk</code></td></tr>
+  <tr><td><a href="https://github.com/Dakera-AI/strands-dakera">strands-dakera</a> &nbsp;<sub>Strands Agents</sub></td><td><code>pip install strands-dakera</code></td></tr>
+  <tr><td colspan="2"><b>Tools</b></td></tr>
+  <tr><td><a href="https://github.com/Dakera-AI/dakera-mcp">dakera-mcp</a> &nbsp;<sub>MCP server</sub></td><td><code>npx @dakera-ai/dakera-mcp</code></td></tr>
+  <tr><td><a href="https://github.com/Dakera-AI/dakera-cli">dakera-cli</a> &nbsp;<sub>CLI, <code>dk</code></sub></td><td><code>brew install dakera-ai/tap/dk</code></td></tr>
+  <tr><td><a href="https://github.com/Dakera-AI/homebrew-tap">homebrew-tap</a> · <a href="https://github.com/Dakera-AI/apt-repo">apt-repo</a> · <a href="https://github.com/Dakera-AI/rpm-repo">rpm-repo</a></td><td>Homebrew, apt and dnf packages for <code>dk</code></td></tr>
+  <tr><td colspan="2"><b>Deployment</b></td></tr>
+  <tr><td><a href="https://github.com/Dakera-AI/dakera-deploy">dakera-deploy</a> &nbsp;<sub>Compose and Kubernetes</sub></td><td>Compose profiles, HA cluster, manifests, monitoring</td></tr>
+  <tr><td><a href="https://github.com/Dakera-AI/dakera-helm">dakera-helm</a> &nbsp;<sub>Helm chart</sub></td><td>OCI chart on <code>ghcr.io</code>, also on <a href="https://artifacthub.io/packages/helm/dakera/dakera">Artifact Hub</a></td></tr>
+</table>
 
-| Repository | What it is | Status |
-|:---|:---|:---|
-| [dakera-deploy](https://github.com/Dakera-AI/dakera-deploy) | Docker Compose, Kubernetes manifests, clustering and monitoring configs | v0.12 update in review (#299) |
-| [dakera-helm](https://github.com/Dakera-AI/dakera-helm) | Helm chart, published to Artifact Hub and as an OCI chart | v0.12 update in review (#12) |
-| [dakera-cli](https://github.com/Dakera-AI/dakera-cli) | `dk`, the command-line client | v0.12 support in review (#152) |
-| [dakera-mcp](https://github.com/Dakera-AI/dakera-mcp) | MCP server for Claude, Cursor and Windsurf; 14 core tools by default, more through profiles | v0.12 support in review (#155) |
-| [homebrew-tap](https://github.com/Dakera-AI/homebrew-tap), [apt-repo](https://github.com/Dakera-AI/apt-repo), [rpm-repo](https://github.com/Dakera-AI/rpm-repo) | Package repositories for `dk` (Homebrew also carries `dakera-mcp`); updated by the CLI and MCP releases | Follow the dakera-cli and dakera-mcp releases |
+<br>
 
-### SDKs
+## Deploy
 
-| Repository | Install | Status |
-|:---|:---|:---|
-| [dakera-py](https://github.com/Dakera-AI/dakera-py) | `pip install dakera` | v0.12 support in review (#198) |
-| [dakera-js](https://github.com/Dakera-AI/dakera-js) | `npm install @dakera-ai/dakera` | v0.12 support in review (#246) |
-| [dakera-rs](https://github.com/Dakera-AI/dakera-rs) | `cargo add dakera-client` | v0.12 support in review (#168) |
-| [dakera-go](https://github.com/Dakera-AI/dakera-go) | `go get github.com/dakera-ai/dakera-go` | v0.12 support in review (#159) |
+<table>
+  <tr>
+    <td width="33%" valign="top">
+      <h4>Docker</h4>
+      <p>One container with its models inside, as in the <a href="#quickstart">quickstart</a>. Starts air-gapped and on read-only file systems.</p>
+    </td>
+    <td width="33%" valign="top">
+      <h4>Docker Compose</h4>
+      <p>Single node with MinIO, a three-node HA cluster behind Traefik, and a Prometheus and Grafana stack: <a href="https://github.com/Dakera-AI/dakera-deploy">dakera-deploy</a>.</p>
+    </td>
+    <td width="33%" valign="top">
+      <h4>Kubernetes</h4>
+      <p>The Helm chart from <code>oci://ghcr.io</code> or <a href="https://artifacthub.io/packages/helm/dakera/dakera">Artifact Hub</a>, with probes and a model cache: <a href="https://github.com/Dakera-AI/dakera-helm">dakera-helm</a>.</p>
+    </td>
+  </tr>
+</table>
 
-### Framework integrations
+```bash
+# Docker Compose: Dakera with MinIO object storage
+git clone https://github.com/Dakera-AI/dakera-deploy && cd dakera-deploy/docker
+cp .env.example .env          # set DAKERA_ROOT_API_KEY and the MinIO credentials
+docker compose up -d
 
-| Repository | Install | Status |
-|:---|:---|:---|
-| [dakera-langchain](https://github.com/Dakera-AI/dakera-langchain) | `pip install langchain-dakera` | Released, v0.2.0 |
-| [dakera-langchain-js](https://github.com/Dakera-AI/dakera-langchain-js) | `npm install @dakera-ai/langchain` | Released, v0.2.0 |
-| [dakera-llamaindex](https://github.com/Dakera-AI/dakera-llamaindex) | `pip install llamaindex-dakera` | Released, v0.2.0 |
-| [dakera-crewai](https://github.com/Dakera-AI/dakera-crewai) | `pip install crewai-dakera` | Released, v0.2.0 |
-| [dakera-autogen](https://github.com/Dakera-AI/dakera-autogen) | `pip install autogen-dakera` | Released, v0.2.0 |
-| [dakera-ai-sdk](https://github.com/Dakera-AI/dakera-ai-sdk) | `npm install @dakera-ai/ai-sdk` | Released, v0.1.2 (Vercel AI SDK) |
-| [strands-dakera](https://github.com/Dakera-AI/strands-dakera) | see the repository | Released, python v0.2.0 (Strands Agents) |
+# Kubernetes: the Helm chart
+helm install dakera oci://ghcr.io/dakera-ai/dakera-helm/dakera \
+  --namespace dakera --create-namespace \
+  --set dakera.rootApiKey="$DAKERA_API_KEY" \
+  --set minio.rootPassword="<password>"
+```
 
-<sub>The SDKs and integrations that declare a licence are MIT (Apache-2.0 for strands-dakera); check each repository. Status reflects the state on 2026-10-01 and is not updated automatically.</sub>
+Configuration, clustering, storage backends and air-gapped installs: [deployment docs](https://dakera.ai/docs/deployment).
 
-<br />
+<br>
 
-## Documentation
+## Docs and learning
 
-- [Documentation](https://dakera.ai/docs) (latest, v0.12)
-- [v0.11 documentation](https://dakera.ai/docs/v0-11/) (kept for deployments still on v0.11; available once the versioned docs are published)
-- Upgrading from v0.11.108 and the release notes (in the [documentation](https://dakera.ai/docs))
-- [Benchmark](https://dakera.ai/benchmark)
-- [Support](SUPPORT.md) · [Security policy](SECURITY.md) · [Contributing](CONTRIBUTING.md)
+<table>
+  <tr><td width="34%"><a href="https://dakera.ai/docs"><b>Documentation</b></a></td><td>v0.12.0, the latest release. The <a href="https://dakera.ai/docs/v0-11/">v0.11 docs</a> stay available as an archive.</td></tr>
+  <tr><td><a href="https://dakera.ai/blog/dakera-v0-12-0-release"><b>What's new in v0.12.0</b></a></td><td>The release announcement.</td></tr>
+  <tr><td><a href="https://dakera.ai/docs/upgrade-from-v0-11-108"><b>Upgrade from v0.11.108</b></a></td><td>What changes on the first start, what to check, and <a href="https://dakera.ai/docs/rollback-to-v0-11">how to go back</a>.</td></tr>
+  <tr><td><a href="https://dakera.ai/docs/concepts"><b>Concepts</b></a> · <a href="https://dakera.ai/docs/api"><b>API reference</b></a></td><td>Memories, agents, namespaces and sessions; every route.</td></tr>
+  <tr><td><a href="https://dakera.ai/playground"><b>Playground</b></a></td><td>Try store and recall in the browser.</td></tr>
+</table>
 
-<sub>The self-hosted engine sends product telemetry unless you turn it off with `DAKERA_TELEMETRY=0` or `DO_NOT_TRACK=1`. It never sends memory content; what it sends is listed in the engine's `docs/telemetry.md`.</sub>
+<br>
 
-<br />
+## Community and support
 
-<div align="center">
+- **Questions and bugs:** open an issue on the repository you use, for example [dakera-py](https://github.com/Dakera-AI/dakera-py/issues) or [dakera-deploy](https://github.com/Dakera-AI/dakera-deploy/issues). Include the server version from `/health`. See [SUPPORT.md](https://github.com/Dakera-AI/.github/blob/main/SUPPORT.md).
+- **Security:** report vulnerabilities privately, never in a public issue. See [SECURITY.md](https://github.com/Dakera-AI/.github/blob/main/SECURITY.md).
+- **Contributing:** the SDKs, integrations, CLI, MCP server and deployment repositories accept pull requests. See [CONTRIBUTING.md](https://github.com/Dakera-AI/.github/blob/main/CONTRIBUTING.md) and the [code of conduct](https://github.com/Dakera-AI/.github/blob/main/CODE_OF_CONDUCT.md).
+- **News:** [LinkedIn](https://linkedin.com/company/dakera-ai) and the [blog](https://dakera.ai/blog).
 
-<a href="https://dakera.ai">dakera.ai</a> · <a href="https://dakera.ai/docs">Docs</a> · <a href="https://github.com/Dakera-AI">GitHub</a>
+<br>
 
-</div>
+## Licence
+
+The SDKs, framework integrations, CLI and MCP server are MIT licensed (strands-dakera is Apache-2.0); check each repository. The Dakera server is proprietary and is distributed as a container image with no usage fees.
+
+<sub>The server sends product telemetry, never memory content, unless you turn it off with <code>DAKERA_TELEMETRY=0</code> or <code>DO_NOT_TRACK=1</code>. What it sends is listed in the <a href="https://dakera.ai/docs/telemetry">telemetry docs</a>.</sub>
+
+<br>
+
+<p align="center">
+  <a href="https://dakera.ai">dakera.ai</a> &nbsp;·&nbsp; <a href="https://dakera.ai/docs">Docs</a> &nbsp;·&nbsp; <a href="https://dakera.ai/benchmark">Benchmark</a> &nbsp;·&nbsp; <a href="https://linkedin.com/company/dakera-ai">LinkedIn</a>
+  <br>
+  <sub><i>ذاكرة · dhākira · Arabic for memory</i></sub>
+</p>

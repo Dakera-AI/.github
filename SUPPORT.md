@@ -2,35 +2,35 @@
 
 ## Documentation
 
-Official documentation, quickstart guides, and API reference:
+Start with **[dakera.ai/docs](https://dakera.ai/docs)**: quickstart, concepts, API reference, SDK guides, deployment and troubleshooting, for v0.12.0 (latest). The [v0.11 docs](https://dakera.ai/docs/v0-11/) stay available for deployments that have not upgraded. Upgrading from v0.11.108? Read the [upgrade guide](https://dakera.ai/docs/upgrade-from-v0-11-108) first.
 
-**[dakera.ai/docs](https://dakera.ai/docs)** (latest, v0.12). Deployments still on v0.11 can use the v0.11 docs at [dakera.ai/docs/v0-11](https://dakera.ai/docs/v0-11/) once the versioned docs are published. Upgrading from v0.11.108? Start with the upgrade guide in the [documentation](https://dakera.ai/docs).
+## Questions, bugs and feature requests
 
-## Bug Reports and Feature Requests
+Open an issue on the repository you use:
 
-Use the **Issues** tab on the relevant SDK repository:
-
-| Repository | Purpose |
+| Repository | For |
 |:--|:--|
-| [dakera-py](https://github.com/dakera-ai/dakera-py/issues) | Python SDK |
-| [dakera-js](https://github.com/dakera-ai/dakera-js/issues) | TypeScript / JavaScript SDK |
-| [dakera-rs](https://github.com/dakera-ai/dakera-rs/issues) | Rust SDK |
-| [dakera-go](https://github.com/dakera-ai/dakera-go/issues) | Go SDK |
-| [dakera-cli](https://github.com/dakera-ai/dakera-cli/issues) | `dk` command-line client |
-| [dakera-mcp](https://github.com/dakera-ai/dakera-mcp/issues) | MCP server |
-| [dakera-deploy](https://github.com/dakera-ai/dakera-deploy/issues) | Docker Compose, Kubernetes and clustering configs |
-| [dakera-helm](https://github.com/dakera-ai/dakera-helm/issues) | Helm chart |
+| [dakera-py](https://github.com/Dakera-AI/dakera-py/issues) | Python SDK |
+| [dakera-js](https://github.com/Dakera-AI/dakera-js/issues) | TypeScript / JavaScript SDK |
+| [dakera-go](https://github.com/Dakera-AI/dakera-go/issues) | Go SDK |
+| [dakera-rs](https://github.com/Dakera-AI/dakera-rs/issues) | Rust SDK |
+| [dakera-cli](https://github.com/Dakera-AI/dakera-cli/issues) | `dk` command-line client |
+| [dakera-mcp](https://github.com/Dakera-AI/dakera-mcp/issues) | MCP server |
+| [dakera-deploy](https://github.com/Dakera-AI/dakera-deploy/issues) | Docker Compose, Kubernetes, clustering, monitoring, **and the Dakera server itself** |
+| [dakera-helm](https://github.com/Dakera-AI/dakera-helm/issues) | Helm chart |
 
-For bugs in the core engine (its repository is private), open an issue on the SDK or deployment repository you use, stating the server version from `/health`, or use [GitHub Discussions](https://github.com/orgs/dakera-ai/discussions).
+Framework integrations (LangChain, LangChain.js, LlamaIndex, CrewAI, AutoGen, Vercel AI SDK, Strands) each take issues in their own repository.
 
-Please include steps to reproduce, expected behavior, and actual behavior.
+The server's source repository is private: report server bugs on [dakera-deploy](https://github.com/Dakera-AI/dakera-deploy/issues). Every report helps more when it includes:
 
-## Security Vulnerabilities
+- the server version (`curl http://localhost:3000/health`) and the client version;
+- how you deploy (Docker, Compose, Kubernetes, cluster) and the relevant `DAKERA_*` settings, without secrets;
+- steps to reproduce, what you expected and what happened, with logs.
 
-Do **not** open a public issue for security concerns.
+## Security
 
-See [SECURITY.md](SECURITY.md) for responsible disclosure via GitHub Security Advisories.
+Never report a vulnerability in a public issue. Follow [SECURITY.md](SECURITY.md).
 
-## Enterprise and Commercial Enquiries
+## Commercial enquiries
 
-Visit **[dakera.ai](https://dakera.ai)** for enterprise deployments, commercial licensing, or partnership discussions.
+For commercial use, partnerships or deployment help, contact us through [dakera.ai](https://dakera.ai) or [LinkedIn](https://linkedin.com/company/dakera-ai).
