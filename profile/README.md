@@ -64,7 +64,7 @@ Under the hood: HNSW and IVF vector indexes, BM25 full text, a knowledge graph, 
     </td>
     <td valign="top">
       <h4>Measured performance</h4>
-      <p>Reranked recall <b>11.5&nbsp;s → 6.2&nbsp;s</b>. Container memory after reranking <b>4.98 → 0.65&nbsp;GB</b>. HNSW memory per vector <b>−43&nbsp;%</b> at the same recall@10. Vector search p95 <b>1.17&nbsp;ms</b> at 50k vectors.</p>
+      <p>Vector search <b>0.87&nbsp;ms p50 / 1.17&nbsp;ms p95</b> at recall@10 0.998. Index memory per vector <b>−43&nbsp;%</b>. Memory after reranking <b>7.6× lower</b> (4.98 → 0.65&nbsp;GB), reranking about <b>2× faster</b> on the same CPU, ingest <b>2.7× faster</b>. The whole multimodal stack fits in <b>~530&nbsp;MiB</b>, no GPU.</p>
     </td>
   </tr>
   <tr>
@@ -89,7 +89,7 @@ Under the hood: HNSW and IVF vector indexes, BM25 full text, a knowledge graph, 
   </tr>
 </table>
 
-<sub>Performance figures compare v0.12.0 with v0.11.108 on the same hardware: reranked recall at <code>top_k</code> 16 in a 4 CPU / 8 GiB container; HNSW figures on BEIR Quora, 50k 1024-d vectors. Details in the <a href="https://dakera.ai/docs/whats-new">release notes</a>.</sub>
+<sub>CPU-only figures, v0.12.0 compared with v0.11.108 on the same machine: vector search and index memory on BEIR Quora, 50k 1024-d vectors; reranking with <code>bge-reranker-v2-m3</code> at <code>top_k</code> 16 in a 4 vCPU / 8 GiB container; multimodal stack = working memory with every model loaded. Details in the <a href="https://dakera.ai/docs/whats-new">release notes</a>.</sub>
 
 <br>
 
