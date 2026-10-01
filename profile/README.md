@@ -28,7 +28,7 @@ Persistent, session-aware memory for agents: hybrid vector and full-text recall,
 
 ## Dakera v0.12.0
 
-Released 2026-10-01. An unchanged v0.11.108 deployment upgrades in place, and going back is one command (`dakera downgrade`). Read the [upgrade guide](https://github.com/Dakera-AI/dakera/blob/main/docs/v0.12/UPGRADE.md) before upgrading: a few behaviours change (gRPC needs an API key, namespace quotas are enforced, ranking and `smart_score` scale change, a stored backup schedule starts running).
+Released 2026-10-01. An unchanged v0.11.108 deployment upgrades in place, and going back is one command (`dakera downgrade`). Read the upgrade guide in the [documentation](https://dakera.ai/docs) before upgrading: a few behaviours change (gRPC needs an API key, namespace quotas are enforced, ranking and `smart_score` scale change, a stored backup schedule starts running).
 
 - **Faster, leaner recall.** In a paired run against v0.11.108, recall p50 went from 3.8 s to 1.8 s and resident memory from 2.4 GB to 0.97 GB. Reranked recall went from 11.5 s to 6.2 s, and container memory after reranking from 4.98 GB to 0.65 GB.
 - **Recall quality.** 89.5 % on LoCoMo (1,540 questions), up from 86.4 % for v0.11.93 on the same gate metric (definition below).
@@ -37,7 +37,7 @@ Released 2026-10-01. An unchanged v0.11.108 deployment upgrades in place, and go
 - **Opt-in features.** Multimodal memory (attachments, speech to text, image indexing, records), late interaction, multilingual search (`bge-m3`), RaBitQ search mode and `GET /v1/capabilities`. All are off by default.
 - **Smaller image.** `ghcr.io/dakera-ai/dakera:0.12.0` is about 0.8 GB (783 MB measured, amd64) and ships its default models, so it starts without a download.
 
-Full list: [release notes](https://github.com/Dakera-AI/dakera/blob/main/docs/v0.12/RELEASE_NOTES.md), including the known limitations.
+Full list: the release notes in the [documentation](https://dakera.ai/docs), including the known limitations.
 
 <br />
 
@@ -49,7 +49,7 @@ Full list: [release notes](https://github.com/Dakera-AI/dakera/blob/main/docs/v0
 | **Per category** | single-hop 90.1 % · multi-hop 88.5 % · temporal 72.9 % · open-domain 91.7 % |
 | **Paper-comparable R@K** (single production ranked list) | R@1 48.2 % · R@5 63.4 % · R@10 67.7 % · R@20 84.7 % |
 
-<sub>Definition of the headline: it is the dakera-bench LoCoMo gate metric. A question counts when its gold evidence is retrieved by the production recall (top 10) or by the benchmark's additional deep-probe passes. It is recall only: categories 1-4, production configuration, no LLM judge. It is not an R@K over one ranked list, so do not compare it with published R@K numbers or with the 88.2 % Recall@20 we published for v0.11; use the paper-comparable row for that. Raw data is published under [`benchmarks/v0.12.0/`](https://github.com/Dakera-AI/dakera-docs/tree/main/benchmarks/v0.12.0) in dakera-docs. In the paired three-conversation run against v0.11.108, v0.12.0 scored 70.2 % against 73.0 % (recall@10 in the release notes; p = 0.052, within the release gate); the release notes explain why and what is planned for 0.12.1.</sub>
+<sub>Definition of the headline: it is the dakera-bench LoCoMo gate metric. A question counts when its gold evidence is retrieved by the production recall (top 10) or by the benchmark's additional deep-probe passes. It is recall only: categories 1-4, production configuration, no LLM judge. It is not an R@K over one ranked list, so do not compare it with published R@K numbers or with the 88.2 % Recall@20 we published for v0.11; use the paper-comparable row for that. Raw data is published under [dakera.ai/benchmark](https://dakera.ai/benchmark) (under `/benchmark/v0.12.0/`). In the paired three-conversation run against v0.11.108, v0.12.0 scored 70.2 % against 73.0 % (recall@10 in the release notes; p = 0.052, within the release gate); the release notes explain why and what is planned for 0.12.1.</sub>
 
 <br />
 
@@ -140,7 +140,7 @@ The core engine is proprietary and distributed as a container image. The reposit
 
 - [Documentation](https://dakera.ai/docs) (latest, v0.12)
 - [v0.11 documentation](https://dakera.ai/docs/v0-11/) (kept for deployments still on v0.11; available once the versioned docs are published)
-- [Upgrading from v0.11.108](https://github.com/Dakera-AI/dakera/blob/main/docs/v0.12/UPGRADE.md) and [release notes](https://github.com/Dakera-AI/dakera/blob/main/docs/v0.12/RELEASE_NOTES.md)
+- Upgrading from v0.11.108 and the release notes (in the [documentation](https://dakera.ai/docs))
 - [Benchmark](https://dakera.ai/benchmark)
 - [Support](SUPPORT.md) · [Security policy](SECURITY.md) · [Contributing](CONTRIBUTING.md)
 

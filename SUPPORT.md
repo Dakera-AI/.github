@@ -4,7 +4,7 @@
 
 Official documentation, quickstart guides, and API reference:
 
-**[dakera.ai/docs](https://dakera.ai/docs)** (latest, v0.12). Deployments still on v0.11 can use the v0.11 docs at [dakera.ai/docs/v0-11](https://dakera.ai/docs/v0-11/) once the versioned docs are published. Upgrading from v0.11.108? Start with the [upgrade guide](https://github.com/Dakera-AI/dakera/blob/main/docs/v0.12/UPGRADE.md).
+**[dakera.ai/docs](https://dakera.ai/docs)** (latest, v0.12). Deployments still on v0.11 can use the v0.11 docs at [dakera.ai/docs/v0-11](https://dakera.ai/docs/v0-11/) once the versioned docs are published. Upgrading from v0.11.108? Start with the upgrade guide in the [documentation](https://dakera.ai/docs).
 
 ## Bug Reports and Feature Requests
 

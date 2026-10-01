@@ -20,7 +20,7 @@ Security fixes are applied to the latest released version, as stated in the engi
 | Dakera engine | 0.12.x (current line, 0.12.0 released 2026-10-01) | 0.11.x and earlier |
 | SDKs, CLI, MCP server, integrations | The latest release of each repository | Earlier releases |
 
-Deployments on v0.11.108 can upgrade in place, and can go back with `dakera downgrade` if needed; see the [upgrade guide](https://github.com/Dakera-AI/dakera/blob/main/docs/v0.12/UPGRADE.md). Dakera is in public alpha.
+Deployments on v0.11.108 can upgrade in place, and can go back with `dakera downgrade` if needed; see the upgrade guide in the [documentation](https://dakera.ai/docs). Dakera is in public alpha.
 
 ## Data Handling
 
