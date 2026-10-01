@@ -4,7 +4,7 @@ Thanks for your interest in contributing to Dakera! This guide applies to all re
 
 ## Architecture Overview
 
-Dakera is a multi-crate Rust project compiled into a single binary. The core engine handles agent memory, hybrid search (vector + BM25), built-in inference, and knowledge graph operations. A REST API, gRPC interface, MCP server, and WebAssembly dashboard sit above the engine. Native SDKs (Python, TypeScript, Rust, Go) wrap the REST API.
+Dakera is a multi-crate Rust project compiled into a single binary. The core engine handles agent memory, hybrid search (vector + BM25), built-in inference, and knowledge graph operations. A REST API, gRPC interface, MCP server, and WebAssembly dashboard sit above the engine. Native SDKs (Python, TypeScript, Rust, Go) wrap the REST API. The core engine's source is private; the SDKs, CLI, MCP server, integrations, deployment configs and package repositories are public and accept contributions.
 
 Before contributing, read the [documentation](https://dakera.ai/docs) to understand the memory model and API surface. Dev setup instructions are in each repository's README.
 

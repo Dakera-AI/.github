@@ -40,6 +40,25 @@ body:
         - Other
     validations:
       required: true
+  - type: dropdown
+    id: server_version
+    attributes:
+      label: Dakera server version you use
+      options:
+        - 0.12.0
+        - 0.11.x
+        - Not applicable
+  - type: dropdown
+    id: deployment
+    attributes:
+      label: Deployment type
+      options:
+        - Docker (single node)
+        - Docker Compose
+        - Kubernetes / Helm
+        - Cluster (multiple nodes)
+        - Binary on a host
+        - Not applicable
   - type: textarea
     id: context
     attributes:
