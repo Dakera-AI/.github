@@ -28,18 +28,39 @@ body:
       label: Component
       description: Which part of Dakera does this relate to?
       options:
-        - Core Engine
+        - Dakera server
         - Python SDK
-        - JavaScript SDK
+        - TypeScript / JavaScript SDK
         - Go SDK
         - Rust SDK
-        - CLI
-        - MCP Server
+        - Framework integration
+        - CLI (dk)
+        - MCP server
+        - Deployment (Compose, Kubernetes, Helm)
         - Dashboard
         - Documentation
         - Other
     validations:
       required: true
+  - type: dropdown
+    id: server_version
+    attributes:
+      label: Dakera server version you use
+      options:
+        - 0.12.0
+        - 0.11.x
+        - Not applicable
+  - type: dropdown
+    id: deployment
+    attributes:
+      label: Deployment type
+      options:
+        - Docker (single node)
+        - Docker Compose
+        - Kubernetes / Helm
+        - Cluster (multiple nodes)
+        - Binary on a host
+        - Not applicable
   - type: textarea
     id: context
     attributes:
